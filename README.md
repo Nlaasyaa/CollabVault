@@ -74,7 +74,6 @@ CollabVault is built with a robust, modern technology stack ensuring performance
 - **Real-time:** [Socket.io](https://socket.io/)
 - **Authentication:** JWT (JSON Web Tokens) & BCrypt
 - **Email:** Nodemailer
-- **File Uploads:** Multer
 
 ---
 
