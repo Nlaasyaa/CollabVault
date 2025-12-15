@@ -25,30 +25,30 @@
 
 ---
 
-## 🚀 About CollabVault
+## About CollabVault
 
 **CollabVault** is not just another networking platform; it's a digital ecosystem designed for students, developers, and innovators to find teammates, showcase their skills, and bridge the gap between ideas and reality. 
 
 Wrapped in a **distinctive retro-industrial VHS aesthetic**, CollabVault brings a unique flavor to professional networking. Whether you are looking for a hackathon partner, a co-founder, or just a study buddy, CollabVault has the tools to make it happen.
 
-## ✨ Key Features
+## Key Features
 
-### 🤝 Networking & Connections
+### Networking & Connections
 - **Smart Recommendations:** Algorithm-driven suggestions to find the perfect teammates based on skills and interests.
 - **Connection Requests:** seamless invite system to build your professional circle.
 - **Swipe to Connect:** A dynamic interface to discover potential collaborators.
 
-### 💬 Real-Time Communication
+### Real-Time Communication
 - **Instant Messaging:** Powered by **Socket.io** for low-latency chatting.
 - **Team Chats:** Dedicated group spaces for your projects and squads.
 - **One-on-One DM:** Private channels for direct collaboration.
 
-### 📢 Capabilities
+### Capabilities
 - **Dynamic Feed:** Share updates, project milestones, and thoughts with the community.
 - **Interactive Posts:** Like, comment, and engage with content.
 - **Announcements:** Stay updated with platform-wide news.
 
-### 🛠️ User Experience
+### User Experience
 - **Retro-Industrial UI:** A stunning dark-mode interface inspired by 80s/90s VHS packaging and industrial design.
 - **Comprehensive Profiles:** Showcase your college, branch, bio, skills, and interests.
 - **Admin Dashboard:** Powerful tools for community management.
@@ -78,7 +78,7 @@ CollabVault is built with a robust, modern technology stack ensuring performance
 
 ---
 
-## 🏁 Getting Started
+## Getting Started
 
 Follow these steps to set up the project locally on your machine.
 
@@ -141,7 +141,7 @@ npm run dev
 
 ---
 
-## 🔮 Future Roadmap
+## Future Roadmap
 
 - [ ] Mobile Application (React Native)
 - [ ] AI-powered Project Matching
@@ -150,7 +150,7 @@ npm run dev
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
@@ -163,5 +163,5 @@ Contributions are what make the open-source community such an amazing place to l
 ---
 
 <div align="center">
-  <p>Made with ❤️ by the CollabVault Team</p>
+  <p>Made with dedication and consistency</p>
 </div>
