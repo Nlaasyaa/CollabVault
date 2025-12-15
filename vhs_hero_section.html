@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech - Community Hub</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap");
+
+        :root {
+            --dark-color: #191f1d;
+            --mid-dark: #555a57;
+            --stripe-color: #252b29;
+            /* Subtler stripe color */
+            --light-color: #ece0c8;
+            --mid-light: #949993;
+            --shadow: #0005;
+            --linear-rainbow: linear-gradient(to right, #ede6bf, #ecc947, #cb5a31, #6f5d79, #4e779a);
+            --circle-rainbow: radial-gradient(circle at left top, #ede6bf, #ecc947, #cb5a31, #6f5d79, #4e779a);
+            --noise-texture: url(https://i.gyazo.com/a26366e538851a5c569ff648e99b7fd4.png);
+            --gif-texture: url(https://64.media.tumblr.com/da60c13b478dda09ab90c27e880983b8/tumblr_nd4pwdPKdc1tun3l0o1_1280.gifv);
+
+            --mulish: "Mulish", sans-serif;
+            --playfair: "Playfair Display", serif;
+            --dm: "DM Serif Display", serif;
+            --main-transition: all 0.2s ease-in-out;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark-color);
+            color: var(--light-color);
+            font-family: var(--mulish);
+            overflow-x: hidden;
+        }
+
+        /* Global Noise Overlay */
+        .noise-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: var(--noise-texture);
+            background-blend-mode: overlay;
+            pointer-events: none;
+            z-index: 999;
+            opacity: 0.05;
+        }
+
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0.2) 50%, rgba(0, 0, 0, 0.2));
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        /* Layout Utilities */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .logo {
+            font-family: var(--mulish);
+            font-weight: 900;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--mid-light);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--main-transition);
+        }
+
+        .nav-link:hover {
+            color: var(--light-color);
+            text-shadow: 0 0 8px var(--light-color);
+        }
+
+        .btn-nav {
+            border: 1px solid var(--mid-light);
+            padding: 0.5rem 1.5rem;
+            text-transform: uppercase;
+            font-weight: 800;
+            font-size: 0.8rem;
+            color: var(--light-color);
+            text-decoration: none;
+            transition: var(--main-transition);
+        }
+
+        .btn-nav:hover {
+            background: var(--light-color);
+            color: var(--dark-color);
+            transform: scale(1.05);
+        }
+
+        /* Hero Section (The VHS Sleeve) */
+        .hero-section {
+            position: relative;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            min-height: 80vh;
+            /* Taller to fit content */
+            align-items: center;
+            /* The diagonal stripe background */
+            background-image: linear-gradient(150deg,
+                    var(--dark-color) 20.2%,
+                    var(--stripe-color) 20.28%,
+                    var(--stripe-color) 20.7%,
+                    var(--dark-color) 20.78%,
+                    var(--dark-color) 21.4%,
+                    var(--stripe-color) 21.48%,
+                    var(--stripe-color) 22.6%,
+                    var(--dark-color) 22.68%,
+                    var(--dark-color) 23.4%,
+                    var(--stripe-color) 23.48%,
+                    var(--stripe-color) 24.6%,
+                    var(--dark-color) 24.68%,
+                    var(--dark-color) 25.4%,
+                    var(--stripe-color) 25.48%,
+                    var(--stripe-color) 27.4%,
+                    var(--dark-color) 27.48%,
+                    var(--dark-color) 28.4%,
+                    var(--stripe-color) 28.48%,
+                    var(--stripe-color) 31.4%,
+                    var(--dark-color) 31.48%,
+                    var(--dark-color) 32.4%,
+                    var(--stripe-color) 32.48%,
+                    var(--stripe-color) 76.4%,
+                    var(--dark-color) 76.48%,
+                    var(--dark-color) 77.4%,
+                    var(--stripe-color) 77.48%,
+                    var(--stripe-color) 81.4%,
+                    var(--dark-color) 81.48%,
+                    var(--dark-color) 82.4%,
+                    var(--stripe-color) 82.48%,
+                    var(--stripe-color) 87.4%,
+                    var(--dark-color) 87.48%);
+            border: 2px solid var(--mid-dark);
+            padding: 4rem;
+            margin-bottom: 6rem;
+            animation: spawn 1.5s ease-out forwards;
+            overflow: hidden;
+        }
+
+        /* Glitch Hover Effect for Hero */
+        .hero-section:hover::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: var(--gif-texture);
+            background-size: cover;
+            mix-blend-mode: screen;
+            opacity: 0.35;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .pill {
+            display: inline-block;
+            background: rgba(236, 224, 200, 0.1);
+            border: 1px solid var(--mid-light);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            /* Pill shape */
+            font-family: var(--mulish);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            width: fit-content;
+            color: var(--mid-light);
+        }
+
+        h1 {
+            font-family: var(--mulish);
+            font-weight: 1000;
+            font-size: 4rem;
+            line-height: 1;
+            text-transform: uppercase;
+            color: var(--light-color);
+            margin: 0;
+        }
+
+        .hero-sub {
+            font-family: var(--playfair);
+            font-size: 1.2rem;
+            color: var(--mid-light);
+            max-width: 500px;
+            line-height: 1.6;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .btn-primary {
+            background-image: var(--linear-rainbow);
+            border: none;
+            padding: 1rem 2rem;
+            font-family: var(--mulish);
+            font-weight: 900;
+            text-transform: uppercase;
+            color: var(--light-color);
+            cursor: pointer;
+            transition: var(--main-transition);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05) rotate(1deg);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--light-color);
+            padding: 1rem 2rem;
+            font-family: var(--mulish);
+            font-weight: 900;
+            text-transform: uppercase;
+            color: var(--light-color);
+            cursor: pointer;
+            transition: var(--main-transition);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-secondary:hover {
+            background: var(--light-color);
+            color: var(--dark-color);
+            transform: scale(1.05);
+        }
+
+        /* The Sphere (Visual) */
+        .visual-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .sphere {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background-image: var(--circle-rainbow);
+            border: 4px solid var(--dark-color);
+            box-shadow: 0 0 0 var(--shadow);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+        }
+
+        .sphere:hover {
+            transform: scale(1.1) rotate(15deg);
+            box-shadow: 20px 20px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        /* Features Section */
+        .features-section {
+            text-align: center;
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            font-family: var(--dm);
+            font-size: 3rem;
+            color: var(--light-color);
+            margin-bottom: 1rem;
+        }
+
+        .section-sub {
+            font-family: var(--mulish);
+            color: var(--mid-light);
+            margin-bottom: 4rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 6rem;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--mid-dark);
+            padding: 2.5rem;
+            text-align: left;
+            transition: var(--main-transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--mid-dark);
+            transition: var(--main-transition);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--light-color);
+        }
+
+        .card:hover::before {
+            background-image: var(--linear-rainbow);
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--light-color);
+        }
+
+        .card h3 {
+            font-family: var(--dm);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--light-color);
+        }
+
+        .card p {
+            font-family: var(--mulish);
+            color: var(--mid-light);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: var(--mid-dark);
+            padding: 5rem 2rem;
+            text-align: center;
+            border-top: 1px solid var(--mid-light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section h2 {
+            font-family: var(--mulish);
+            font-weight: 1000;
+            font-size: 3rem;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            color: var(--light-color);
+        }
+
+        .cta-section p {
+            font-family: var(--playfair);
+            margin-bottom: 2.5rem;
+            color: #ccc;
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 600px;
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem;
+            text-align: center;
+            font-family: var(--mulish);
+            font-size: 0.8rem;
+            color: var(--mid-light);
+            border-top: 1px solid var(--mid-dark);
+        }
+
+        @keyframes spawn {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 900px) {
+            .hero-section {
+                grid-template-columns: 1fr;
+                text-align: center;
+                padding: 2rem;
+            }
+
+            .hero-content {
+                align-items: center;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .btn-primary,
+            .btn-secondary {
+                width: 100%;
+                text-align: center;
+            }
+
+            .visual-container {
+                margin-top: 3rem;
+            }
+
+            .sphere {
+                width: 200px;
+                height: 200px;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Overlay Effects -->
+    <div class="noise-wrapper"></div>
+    <div class="scanlines"></div>
+
+    <div class="container">
+        <!-- Nav -->
+        <nav>
+            <div class="logo">Tech</div>
+            <div class="nav-links">
+                <a href="" class="nav-link">Home</a>
+                <a href="#" class="nav-link">Contact Us</a>
+                <a href="" class="nav-link">Login</a>
+                <a href="" class="btn-nav">Get Started</a>
+
+            </div>
+        </nav>
+
+        <!-- Hero Section (VHS Box Style) -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <div class="pill">⚡ Your Tech Community Hub</div>
+                <h1>Find Your Perfect Hackathon Team</h1>
+                <p class="hero-sub">
+                    Connect with talented developers, share projects, and build amazing things together. Your next great
+                    collaboration starts here.
+                </p>
+                <div class="hero-actions">
+                    <a href="" class="btn-primary">Start Building Together -></a>
+                    <a href="" class="btn-secondary">Sign In</a>
+                </div>
+            </div>
+
+            <div class="visual-container">
+                <!-- The Sphere acts as the abstract branding graphic -->
+                <div class="sphere" title="Collaborate"></div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-section">
+            <h2 class="section-title">Everything You Need to Collaborate</h2>
+            <p class="section-sub">Powerful features designed to help you connect, communicate, and create together.</p>
+
+            <div class="cards-grid">
+                <!-- Card 1 -->
+                <div class="card">
+                    <div class="card-icon">⚡</div>
+                    <h3>Share & Discover</h3>
+                    <p>Post about hackathons, projects, and ideas. Discover what the community is building and get
+                        inspired by innovative projects.</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="card">
+                    <div class="card-icon">👥</div>
+                    <h3>Find Teammates</h3>
+                    <p>Swipe through developer profiles and connect with people who match your skills and interests.
+                        Build your dream team effortlessly.</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="card">
+                    <div class="card-icon">💬</div>
+                    <h3>Real-Time Chat</h3>
+                    <p>Communicate seamlessly with 1-on-1 messaging and team chats. Stay connected and collaborate in
+                        real-time.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <h2>Ready to Join the Community?</h2>
+            <p>Join a growing community of developers connecting, collaborating, and building amazing projects together.
+                Be part of the journey!</p>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="/signup" class="btn-primary">Create Your Account -></a>
+                <a href="/login" class="btn-secondary">Already a Member?</a>
+            </div>
+        </section>
+
+        <footer>
+            &copy; 2024 Tech Tribe. All rights reserved. Analog Soul, Digital Heart.
+        </footer>
+    </div>
+
+</body>
+
+</html>

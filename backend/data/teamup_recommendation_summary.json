@@ -1,0 +1,46 @@
+{
+  "demo_student": "Student_1",
+  "similar_students": [
+    [
+      "Student_547",
+      0.7429384965497337
+    ],
+    [
+      "Student_390",
+      0.7429384965497337
+    ],
+    [
+      "Student_250",
+      0.7429384965497337
+    ],
+    [
+      "Student_232",
+      0.7429384965497337
+    ],
+    [
+      "Student_282",
+      0.6475148584780974
+    ]
+  ],
+  "example_team": {
+    "target_skills": [
+      "React",
+      "Node.js",
+      "SQL",
+      "Go"
+    ],
+    "team": [
+      "Student_1",
+      "Student_232",
+      "Student_250",
+      "Student_390"
+    ],
+    "covered": [
+      "Node.js",
+      "Go",
+      "React",
+      "SQL"
+    ],
+    "remaining": []
+  }
+}
