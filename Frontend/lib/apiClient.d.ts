@@ -45,3 +45,4 @@ export function getAdminAnalytics(token: string): Promise<any>;
 export function getAnnouncements(token: string): Promise<any>;
 export function createAnnouncement(data: { title: string; content: string; is_pinned?: boolean }, token: string): Promise<any>;
 export function deleteAnnouncement(id: string | number, token: string): Promise<any>;
+export function resetPassword(email: string, token: string, newPassword: string): Promise<any>;
