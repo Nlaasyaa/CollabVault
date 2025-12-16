@@ -148,9 +148,6 @@ export default function SettingsPage({ onBack }: { onBack: () => void }) {
     })
   }
 
-  import {
-    getAllSkills, getAllInterests, changePassword
-  } from "@/lib/apiClient"
   const handleSave = async () => {
     setIsSaving(true)
     try {
@@ -166,10 +163,22 @@ export default function SettingsPage({ onBack }: { onBack: () => void }) {
       })
 
       if (showPasswordInput && newPassword) {
-        // Line 57: const { user, updateProfile } = useAuth() -> It is NOT destructured currently.
+        if (newPassword.length < 6) {
+          alert("Password must be at least 6 characters long.")
+          return
+        }
+        if (token) {
+          await changePassword(newPassword, token)
+        }
       }
 
-      // We need to fix the imports and the destructuring first, so I will break this thought and execute the tool correctly.
+      await new Promise((resolve) => setTimeout(resolve, 1000))
+      alert("Settings saved successfully!")
+      setShowPasswordInput(false)
+      setNewPassword("")
+    } catch (error) {
+      console.error("Failed to save settings:", error)
+      alert("Failed to save settings.")
     } finally {
       setIsSaving(false)
     }
