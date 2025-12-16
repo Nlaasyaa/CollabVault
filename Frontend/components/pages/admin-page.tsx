@@ -47,6 +47,7 @@ export default function AdminPage() {
             const usersData = await getAdminUsers(token)
             setUsers(usersData)
             const feedbackData = await getAdminFeedback(token)
+            console.log("Admin Feedback Data:", feedbackData)
             setFeedback(feedbackData)
             const analyticsData = await getAdminAnalytics(token)
             setAnalytics(analyticsData)
