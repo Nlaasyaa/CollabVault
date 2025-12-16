@@ -608,6 +608,37 @@ export async function addAllowedDomain(domain, displayName, token) {
   return await res.json();
 }
 
+export async function getAllowedDomains(token) {
+  const res = await fetch("http://localhost:5000/admin/allowed-domains", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`
+    }
+  });
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch allowed domains");
+  }
+
+  return await res.json();
+}
+
+export async function removeAllowedDomain(id, token) {
+  const res = await fetch(`http://localhost:5000/admin/allowed-domains/${id}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
+
+  if (!res.ok) {
+    throw new Error("Failed to remove domain");
+  }
+
+  return await res.json();
+}
+
 export async function verifyUserAdmin(userId, isVerify, token) {
   const action = isVerify ? "verify" : "unverify";
   const res = await fetch(`http://localhost:5000/admin/users/${userId}/${action}`, {

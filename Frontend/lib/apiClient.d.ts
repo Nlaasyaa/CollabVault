@@ -33,6 +33,8 @@ export function blockUserAdmin(userId: string | number, token: string): Promise<
 export function unblockUserAdmin(userId: string | number, token: string): Promise<any>;
 export function getAdminFeedback(token: string): Promise<any>;
 export function addAllowedDomain(domain: string, displayName: string, token: string): Promise<any>;
+export function getAllowedDomains(token: string): Promise<any>;
+export function removeAllowedDomain(id: string | number, token: string): Promise<any>;
 export function verifyUserAdmin(userId: string | number, isVerify: boolean, token: string): Promise<any>;
 export function deleteUserAdmin(userId: string | number, token: string): Promise<any>;
 export function replyToFeedback(feedbackId: string | number, reply: string, token: string): Promise<any>;

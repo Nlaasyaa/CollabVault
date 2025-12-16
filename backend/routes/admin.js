@@ -36,6 +36,16 @@ router.post("/allowed-domains", auth, isAdmin, async (req, res) => {
     }
 });
 
+// DELETE /api/admin/allowed-domains/:id
+router.delete("/allowed-domains/:id", auth, isAdmin, async (req, res) => {
+    try {
+        await db.query("DELETE FROM allowed_domains WHERE id = ?", [req.params.id]);
+        res.json({ message: "Domain removed successfully" });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
 // GET /api/admin/users
 router.get("/users", auth, isAdmin, async (req, res) => {
     try {

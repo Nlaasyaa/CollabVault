@@ -11,7 +11,7 @@ import { Badge } from "@/components/ui/badge"
 import { Textarea } from "@/components/ui/textarea"
 import {
     getAdminUsers, blockUserAdmin, unblockUserAdmin, getAdminFeedback,
-    addAllowedDomain, verifyUserAdmin, deleteUserAdmin, replyToFeedback,
+    addAllowedDomain, removeAllowedDomain, getAllowedDomains, verifyUserAdmin, deleteUserAdmin, replyToFeedback,
     getAdminAnalytics, getAnnouncements, createAnnouncement, deleteAnnouncement
 } from "@/lib/apiClient"
 import { Shield, Users, MessageSquare, Globe, Ban, CheckCircle, Trash2, UserCheck, UserX, ExternalLink, Activity, Megaphone, Bell } from "lucide-react"
@@ -34,6 +34,9 @@ export default function AdminPage() {
     const [announcementContent, setAnnouncementContent] = useState("")
     const [isPinned, setIsPinned] = useState(false)
 
+    // Allowed Domains State
+    const [allowedDomains, setAllowedDomains] = useState<any[]>([])
+
     // Feedback Reply State
     const [replyText, setReplyText] = useState<{ [key: string]: string }>({})
 
@@ -47,8 +50,11 @@ export default function AdminPage() {
             setFeedback(feedbackData)
             const analyticsData = await getAdminAnalytics(token)
             setAnalytics(analyticsData)
+            setAnalytics(analyticsData)
             const announcementsData = await getAnnouncements(token)
             setAnnouncements(announcementsData)
+            const domainsData = await getAllowedDomains(token)
+            setAllowedDomains(domainsData)
         } catch (error) {
             console.error("Failed to fetch admin data:", error)
         } finally {
@@ -138,9 +144,22 @@ export default function AdminPage() {
             setNewDomain("")
             setNewDomainName("")
             alert("Domain added successfully")
+            fetchData()
         } catch (error) {
             console.error("Failed to add domain:", error)
             alert("Failed to add domain")
+        }
+    }
+
+    const handleRemoveDomain = async (id: number) => {
+        if (!token || !confirm("Are you sure you want to remove this domain?")) return
+        try {
+            await removeAllowedDomain(id, token)
+            alert("Domain removed successfully")
+            fetchData()
+        } catch (error) {
+            console.error("Failed to remove domain:", error)
+            alert("Failed to remove domain")
         }
     }
 
@@ -434,6 +453,29 @@ export default function AdminPage() {
                                     className="max-w-xs"
                                 />
                                 <Button onClick={handleAddDomain}>Add Domain</Button>
+                            </div>
+
+                            <div className="space-y-4">
+                                <h3 className="text-lg font-semibold">Existing Domains</h3>
+                                {allowedDomains.map((domain) => (
+                                    <div key={domain.id} className="flex items-center justify-between p-3 border rounded-lg">
+                                        <div>
+                                            <p className="font-medium">{domain.display_name}</p>
+                                            <p className="text-sm text-muted-foreground">{domain.domain}</p>
+                                        </div>
+                                        <Button
+                                            variant="ghost"
+                                            size="sm"
+                                            className="text-red-500 hover:bg-red-50 hover:text-red-600"
+                                            onClick={() => handleRemoveDomain(domain.id)}
+                                        >
+                                            <Trash2 className="w-4 h-4" />
+                                        </Button>
+                                    </div>
+                                ))}
+                                {allowedDomains.length === 0 && (
+                                    <p className="text-muted-foreground text-sm">No allowed domains configured.</p>
+                                )}
                             </div>
                         </CardContent>
                     </Card>
