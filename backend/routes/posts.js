@@ -8,8 +8,12 @@ const router = express.Router();
 /* ============================================================
    CREATE POST
    ============================================================ */
+// ... inside router.post('/create' ...
 router.post("/create", auth, async (req, res) => {
   try {
+    console.log("POST /create received body:", req.body);
+    console.log("User creating post:", req.user);
+
     const {
       title,
       description,
@@ -20,6 +24,7 @@ router.post("/create", auth, async (req, res) => {
     } = req.body;
 
     if (!title) {
+      console.log("Missing title");
       return res.status(400).json({ message: "Title is required" });
     }
 
@@ -38,6 +43,8 @@ router.post("/create", auth, async (req, res) => {
       ]
     );
 
+    console.log("Insert result:", result);
+
     res.json({
       success: true,
       message: "Post created successfully",
@@ -45,7 +52,7 @@ router.post("/create", auth, async (req, res) => {
     });
   } catch (err) {
     console.error("Error creating post:", err);
-    res.status(500).json({ error: "Server error" });
+    res.status(500).json({ error: "Server error: " + err.message });
   }
 });
 
