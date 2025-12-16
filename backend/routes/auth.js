@@ -105,14 +105,16 @@ router.post("/register", async (req, res) => {
       ]
     );
 
+    console.log("Starting email send...");
     await sendVerificationEmail(email, token);
+    console.log("Email sent successfully");
 
     res.status(201).json({
       message: "Verification email sent",
     });
   } catch (err) {
     console.error("REGISTER ERROR:", err);
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ error: "Internal server error: " + err.message });
   }
 });
 
