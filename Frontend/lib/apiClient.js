@@ -859,3 +859,21 @@ export async function resetPassword(email, token, newPassword) {
 
   return await res.json();
 }
+
+export async function changePassword(newPassword, token) {
+  const res = await fetch(`${API_URL}/auth/change-password`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`
+    },
+    body: JSON.stringify({ password: newPassword })
+  });
+
+  if (!res.ok) {
+    const error = await res.json();
+    throw new Error(error.error || "Failed to update password");
+  }
+
+  return await res.json();
+}
