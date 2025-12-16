@@ -107,7 +107,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const error = await res.json();
       throw new Error(error.error || "Signup failed");
     }
-    // No auto-login. Flow stops here, UI shows verification message.
+
+    const data = await res.json();
+    if (data.accessToken) {
+      setAuthTokens(data.accessToken, data.refreshToken);
+    }
   };
 
   const login = async (email: string, password: string) => {

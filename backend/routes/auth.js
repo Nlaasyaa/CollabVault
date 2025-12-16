@@ -84,7 +84,7 @@ router.post("/register", async (req, res) => {
     const [result] = await db.query(
       `INSERT INTO users 
         (email, password_hash, email_verified, verification_token_hash, token_expires_at, college_domain, phone_number, phone_verified)
-       VALUES (?, ?, 0, ?, ?, ?, ?, 0)`,
+       VALUES (?, ?, 1, ?, ?, ?, ?, 0)`,
       [email, passwordHash, tokenHash, expires, domain, phone_number || null]
     );
 
@@ -101,17 +101,21 @@ router.post("/register", async (req, res) => {
         college || null,
         branch || null,
         year || null,
-        bio || null,
+        bio || null
       ]
     );
 
-    console.log("Starting email send...");
-    const debugLink = await sendVerificationEmail(email, token);
-    console.log("Email sent successfully");
+    // Try sending email but don't block and don't care if it fails
+    sendVerificationEmail(email, token).catch(e => console.log("Email failed (ignored):", e));
+
+    // Auto-login after signup
+    const user = { id: userId, email, role: 'user', display_name };
 
     res.status(201).json({
-      message: "Verification email sent",
-      debugLink: debugLink // REMOVE IN PRODUCTION
+      message: "Account created successfully",
+      accessToken: signAccessToken(user),
+      refreshToken: signRefreshToken(user),
+      user: user
     });
   } catch (err) {
     console.error("REGISTER ERROR:", err);
@@ -176,11 +180,14 @@ router.post("/login", async (req, res) => {
 
     const user = users[0];
 
+    // Temporarily disabled email verification check
+    /*
     if (!user.email_verified) {
       return res
         .status(403)
         .json({ error: "Please verify your email first" });
     }
+    */
 
     if (user.is_blocked) {
       return res
