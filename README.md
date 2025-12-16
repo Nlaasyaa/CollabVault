@@ -1,6 +1,6 @@
 <div align="center">
 
-  <h1>📼 CollabVault</h1>
+  <h1>CollabVault</h1>
   
   <p>
     <strong>Connect. Collaborate. Create.</strong>
@@ -55,7 +55,7 @@ Wrapped in a **distinctive retro-industrial VHS aesthetic**, CollabVault brings 
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 CollabVault is built with a robust, modern technology stack ensuring performance, scalability, and developer experience.
 
@@ -160,7 +160,4 @@ Contributions are what make the open-source community such an amazing place to l
 5. Open a Pull Request
 
 ---
-
-<div align="center">
-  <p>Made with dedication and consistency</p>
-</div>
+>
