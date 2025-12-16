@@ -35,57 +35,27 @@ router.post("/check-login", async (req, res) => {
     }
 });
 
-// Test Email Configuration
-router.post("/test-email", async (req, res) => {
+// Check DB Connection & Stats
+router.get("/db-check", async (req, res) => {
     try {
-        const { email } = req.body;
-        if (!email) return res.status(400).json({ error: "Email is required" });
+        const [users] = await db.query("SELECT COUNT(*) as count FROM users");
+        const [feedback] = await db.query("SELECT COUNT(*) as count FROM feedback");
 
-        // Import transporter dynamically to avoid circular deps if necessary, 
-        // or just import at top if possible. For now, let's reuse the one from utils/email.js
-        // We need to export transporter from utils/email.js to use it here or create a new one.
-        // Let's create a new one to show exactly what's checking.
-
-        const nodemailer = await import("nodemailer");
-
-        if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
-            return res.status(400).json({
-                error: "Missing credentials",
-                details: "GMAIL_USER or GMAIL_APP_PASSWORD not set in environment"
-            });
-        }
-
-        const transporter = nodemailer.default.createTransport({
-            service: 'gmail',
-            auth: {
-                user: process.env.GMAIL_USER,
-                pass: process.env.GMAIL_APP_PASSWORD,
-            },
-        });
-
-        // Verify connection configuration
-        await transporter.verify();
-
-        const info = await transporter.sendMail({
-            from: '"Debug Mail" <no-reply@collabvault.com>',
-            to: email,
-            subject: "Test Email from CollabVault",
-            text: "If you received this, your email configuration is working perfectly!",
-        });
+        // Host masking
+        const dbHost = process.env.DB_HOST || "unknown";
+        const maskedHost = dbHost.length > 10 ?
+            `${dbHost.substring(0, 4)}...${dbHost.substring(dbHost.length - 4)}` :
+            "local/short";
 
         res.json({
-            success: true,
-            message: "Email sent successfully",
-            messageId: info.messageId
+            status: "Connected",
+            dbHost: maskedHost,
+            userCount: users[0].count,
+            feedbackCount: feedback[0].count,
+            env_api_url: process.env.NEXT_PUBLIC_API_URL || "not set"
         });
-
     } catch (err) {
-        console.error("EMAIL TEST ERROR:", err);
-        res.status(500).json({
-            error: "Email sending failed",
-            details: err.message,
-            stack: err.stack
-        });
+        res.status(500).json({ error: "DB Connection Failed: " + err.message });
     }
 });
 
