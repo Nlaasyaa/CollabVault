@@ -1,4 +1,3 @@
-
 "use client"
 
 import { useState, useEffect, useRef } from "react"
@@ -8,6 +7,8 @@ import { getAllProfiles, sendMessage, getMessages, blockUser, unblockUser, check
 import { useAuth } from "@/context/auth-context"
 import ViewProfileModal from "@/components/view-profile-modal"
 import ImageModal from "@/components/image-modal"
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
 
 interface ChatWindowProps {
   activeChatId: string | null
@@ -283,15 +284,14 @@ export default function ChatWindow({ activeChatId }: ChatWindowProps) {
                     <div className="mb-2">
                       {msg.attachment_type?.startsWith("image/") ? (
                         <img
-                          src={`http://localhost:5000${msg.attachment_url}`}
+                          src={`${API_URL}${msg.attachment_url}`}
                           alt="Attachment"
-                          className="max-w-full rounded-lg cursor-pointer hover:opacity-90 transition-opacity"
-                          style={{ maxHeight: '200px' }}
-                          onClick={() => setExpandedImage(`http://localhost:5000${msg.attachment_url}`)}
+                          className="max-w-full max-h-48 rounded-md cursor-pointer hover:opacity-90 transition-opacity"
+                          onClick={() => setExpandedImage(`${API_URL}${msg.attachment_url}`)}
                         />
                       ) : (
                         <a
-                          href={`http://localhost:5000${msg.attachment_url}`}
+                          href={`${API_URL}${msg.attachment_url}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="flex items-center gap-2 text-blue-500 underline"

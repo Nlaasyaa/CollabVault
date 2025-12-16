@@ -8,19 +8,19 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 export default function DiagnosticPage() {
     const [email, setEmail] = useState("nlaasya.04@gmail.com");
     const [password, setPassword] = useState("12345678");
-    const [result, setResult] = useState<any>(null);
+    const [results, setResults] = useState<any>({}); // Changed from 'result' to 'results' and initial state to {}
     const [loading, setLoading] = useState(false);
 
-    const testLogin = async () => {
+    const checkBackend = async () => { // Changed function name from 'testLogin' to 'checkBackend'
         setLoading(true);
-        setResult(null);
+        setResults((prev: any) => ({ ...prev, backend: "checking..." })); // Changed how results are set
 
         try {
             console.log("Testing login...");
             console.log("Email:", email);
             console.log("Password:", password);
 
-            const response = await fetch("http://localhost:5000/auth/login", {
+            const response = await fetch(`${API_URL}/auth/login`, { // Used API_URL
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

@@ -6,9 +6,12 @@ import { Button } from "@/components/ui/button"
 import CreateGroupModal from "@/components/create-group-modal"
 import AddMemberModal from "@/components/add-member-modal"
 import ManageMembersModal from "@/components/manage-members-modal"
+import { useToast } from "@/hooks/use-toast"
 import { useAuth } from "@/context/auth-context"
 import { getMyConnections, createTeamGroup, getMyTeamGroups, sendTeamMessage, getTeamMessages, deleteTeamGroup, addMemberToGroup, removeMemberFromGroup, markGroupRead, leaveTeamGroup } from "@/lib/apiClient"
 import ImageModal from "@/components/image-modal"
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
 
 const teamGroups: Array<{
   id: string
@@ -347,7 +350,7 @@ export default function TeamChatsPage({ chatUsers = [] }: TeamChatsPageProps) {
 
     try {
       // Fetch current members of the group
-      const response = await fetch(`http://localhost:5000/team-groups/${selectedTeamId}/members`, {
+      const response = await fetch(`${API_URL}/team-groups/${selectedTeamId}/members`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -404,7 +407,7 @@ export default function TeamChatsPage({ chatUsers = [] }: TeamChatsPageProps) {
 
     try {
       // Fetch current members of the group
-      const response = await fetch(`http://localhost:5000/team-groups/${selectedTeamId}/members`, {
+      const response = await fetch(`${API_URL}/team-groups/${selectedTeamId}/members`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -431,7 +434,7 @@ export default function TeamChatsPage({ chatUsers = [] }: TeamChatsPageProps) {
       await removeMemberFromGroup(selectedTeamId, userId, token);
 
       // Refresh members list
-      const response = await fetch(`http://localhost:5000/team-groups/${selectedTeamId}/members`, {
+      const response = await fetch(`${API_URL}/team-groups/${selectedTeamId}/members`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -704,15 +707,14 @@ export default function TeamChatsPage({ chatUsers = [] }: TeamChatsPageProps) {
                       <div className="mb-2">
                         {msg.attachment_type?.startsWith("image/") ? (
                           <img
-                            src={`http://localhost:5000${msg.attachment_url}`}
+                            src={`${API_URL}${msg.attachment_url}`}
                             alt="Attachment"
-                            className="max-w-full rounded-lg cursor-pointer hover:opacity-90 transition-opacity"
-                            style={{ maxHeight: '200px' }}
-                            onClick={() => setExpandedImage(`http://localhost:5000${msg.attachment_url}`)}
+                            className="max-w-full max-h-60 rounded-md cursor-pointer hover:opacity-90 transition-opacity"
+                            onClick={() => setExpandedImage(`${API_URL}${msg.attachment_url}`)}
                           />
                         ) : (
                           <a
-                            href={`http://localhost:5000${msg.attachment_url}`}
+                            href={`${API_URL}${msg.attachment_url}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="flex items-center gap-2 text-white underline"
