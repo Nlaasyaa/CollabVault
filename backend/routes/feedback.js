@@ -7,23 +7,29 @@ const router = express.Router();
 // POST /feedback - Submit feedback
 router.post("/", auth, async (req, res) => {
     try {
+        console.log("POST /feedback hit. Body:", req.body);
+        console.log("User:", req.user);
+
         const { subject, message, rating } = req.body;
         const userId = req.user ? req.user.id : null;
 
         if (!subject || !message) {
+            console.log("Missing subject or message");
             return res.status(400).json({ error: "Subject and message are required" });
         }
 
-        await db.query(
+        console.log("Executing insert query...");
+        const [result] = await db.query(
             "INSERT INTO feedback (user_id, subject, message, rating) VALUES (?, ?, ?, ?)",
             [userId, subject, message, rating || null]
         );
+        console.log("Insert result:", result);
 
         res.status(201).json({ message: "Feedback submitted successfully" });
 
     } catch (err) {
         console.error("Error submitting feedback:", err);
-        res.status(500).json({ error: "Internal server error" });
+        res.status(500).json({ error: "Internal server error: " + err.message });
     }
 });
 
