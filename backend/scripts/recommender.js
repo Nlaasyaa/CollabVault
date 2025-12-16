@@ -16,6 +16,9 @@ const dbConfig = {
     user: process.env.DB_USER || 'root',
     password: process.env.DB_PASS || '',
     database: process.env.DB_NAME || 'techtribe',
+    port: process.env.DB_PORT || 3306,
+    // Add SSL support for Aiven Cloud DB
+    ssl: process.env.DB_HOST?.includes('aivencloud.com') ? { rejectUnauthorized: false } : undefined,
 };
 
 async function main() {
