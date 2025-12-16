@@ -7,6 +7,8 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/context/auth-context";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+
 function VerifyEmailContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
@@ -26,7 +28,7 @@ function VerifyEmailContent() {
 
         const verify = async () => {
             try {
-                const res = await fetch(`http://localhost:5000/auth/verify-email?token=${token}&email=${email}`);
+                const res = await fetch(`${API_URL}/auth/verify-email?token=${token}&email=${email}`);
                 const data = await res.json();
 
                 if (res.ok) {

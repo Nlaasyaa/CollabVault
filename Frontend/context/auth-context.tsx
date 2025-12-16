@@ -2,6 +2,8 @@
 
 import React, { createContext, useContext, useEffect, useState } from "react";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+
 interface User {
   id: string;
   email: string;
@@ -52,7 +54,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const fetchUserProfile = async (authToken: string) => {
     try {
-      const res = await fetch("http://localhost:5000/profile/me", {
+      const res = await fetch(`${API_URL}/profile/me`, {
         headers: { Authorization: `Bearer ${authToken}` },
       });
 
@@ -95,7 +97,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const signup = async (email: string, display_name: string, password: string, additionalData: any = {}) => {
-    const res = await fetch("http://localhost:5000/auth/register", {
+    const res = await fetch(`${API_URL}/auth/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, display_name, password, ...additionalData }),
@@ -110,7 +112,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const login = async (email: string, password: string) => {
     try {
-      const res = await fetch("http://localhost:5000/auth/login", {
+      const res = await fetch(`${API_URL}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
@@ -137,7 +139,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const resendVerification = async (email: string) => {
-    const res = await fetch("http://localhost:5000/auth/resend-verification", {
+    const res = await fetch(`${API_URL}/auth/resend-verification`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email }),
@@ -163,7 +165,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     try {
       const { display_name, ...profile } = data;
-      const res = await fetch("http://localhost:5000/profile", {
+      const res = await fetch(`${API_URL}/profile`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
