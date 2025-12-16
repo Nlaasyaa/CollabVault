@@ -106,11 +106,12 @@ router.post("/register", async (req, res) => {
     );
 
     console.log("Starting email send...");
-    await sendVerificationEmail(email, token);
+    const debugLink = await sendVerificationEmail(email, token);
     console.log("Email sent successfully");
 
     res.status(201).json({
       message: "Verification email sent",
+      debugLink: debugLink // REMOVE IN PRODUCTION
     });
   } catch (err) {
     console.error("REGISTER ERROR:", err);
@@ -322,9 +323,12 @@ router.post("/resend-verification", async (req, res) => {
     );
 
     console.log("Resending verification email to:", user.email);
-    await sendVerificationEmail(user.email, token);
+    const debugLink = await sendVerificationEmail(user.email, token);
 
-    res.json({ message: "Verification email resent" });
+    res.json({
+      message: "Verification email resent",
+      debugLink: debugLink // REMOVE IN PRODUCTION
+    });
   } catch (err) {
     console.error("RESEND ERROR:", err);
     res.status(500).json({ error: "Internal server error" });

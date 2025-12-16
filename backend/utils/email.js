@@ -48,6 +48,7 @@ export const sendVerificationEmail = async (email, token) => {
     } catch (error) {
         console.error("Error sending email:", error);
     }
+    return verificationLink;
 };
 
 export const sendPasswordResetEmail = async (email, token) => {
