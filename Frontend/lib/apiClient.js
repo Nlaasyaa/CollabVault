@@ -1,5 +1,7 @@
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+
 export async function createPost(postData, token) {
-  const res = await fetch("http://localhost:5000/posts/create", {
+  const res = await fetch(`${API_URL}/posts/create`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -26,7 +28,7 @@ export async function getPosts(token = null) {
     headers["Authorization"] = `Bearer ${token}`;
   }
 
-  const res = await fetch("http://localhost:5000/posts", {
+  const res = await fetch(`${API_URL}/posts`, {
     method: "GET",
     headers
   });
@@ -49,7 +51,7 @@ export async function getPost(postId, token = null) {
     headers["Authorization"] = `Bearer ${token}`;
   }
 
-  const res = await fetch(`http://localhost:5000/posts/${postId}`, {
+  const res = await fetch(`${API_URL}/posts/${postId}`, {
     method: "GET",
     headers
   });
@@ -64,7 +66,7 @@ export async function getPost(postId, token = null) {
 }
 
 export async function getAllProfiles() {
-  const res = await fetch("http://localhost:5000/profile", {
+  const res = await fetch(`${API_URL}/profile`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json"
@@ -82,7 +84,7 @@ export async function getAllProfiles() {
 
 
 export async function likePost(postId, token) {
-  const res = await fetch(`http://localhost:5000/posts/${postId}/like`, {
+  const res = await fetch(`${API_URL}/posts/${postId}/like`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -98,7 +100,7 @@ export async function likePost(postId, token) {
 }
 
 export async function commentPost(postId, content, token) {
-  const res = await fetch(`http://localhost:5000/posts/${postId}/comment`, {
+  const res = await fetch(`${API_URL}/posts/${postId}/comment`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -115,7 +117,7 @@ export async function commentPost(postId, content, token) {
 }
 
 export async function getComments(postId) {
-  const res = await fetch(`http://localhost:5000/posts/${postId}/comments`, {
+  const res = await fetch(`${API_URL}/posts/${postId}/comments`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json"
@@ -135,7 +137,7 @@ export async function sendMessage(receiverId, content, token, file = null) {
   if (content) formData.append("content", content);
   if (file) formData.append("file", file);
 
-  const res = await fetch("http://localhost:5000/messages/send", {
+  const res = await fetch(`${API_URL}/messages/send`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${token}`
@@ -153,7 +155,7 @@ export async function sendMessage(receiverId, content, token, file = null) {
 }
 
 export async function getMessages(otherUserId, token) {
-  const res = await fetch(`http://localhost:5000/messages/history/${otherUserId}`, {
+  const res = await fetch(`${API_URL}/messages/history/${otherUserId}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -171,7 +173,7 @@ export async function getMessages(otherUserId, token) {
 }
 
 export async function createConnection(targetUserId, token) {
-  const res = await fetch("http://localhost:5000/connections/create", {
+  const res = await fetch(`${API_URL}/connections/create`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -190,7 +192,7 @@ export async function createConnection(targetUserId, token) {
 }
 
 export async function getMyConnections(token) {
-  const res = await fetch("http://localhost:5000/connections", {
+  const res = await fetch(`${API_URL}/connections`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -208,7 +210,7 @@ export async function getMyConnections(token) {
 }
 
 export async function checkConnection(targetUserId, token) {
-  const res = await fetch(`http://localhost:5000/connections/check/${targetUserId}`, {
+  const res = await fetch(`${API_URL}/connections/check/${targetUserId}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -226,7 +228,7 @@ export async function checkConnection(targetUserId, token) {
 }
 
 export async function createTeamGroup(name, members, token) {
-  const res = await fetch("http://localhost:5000/team-groups/create", {
+  const res = await fetch(`${API_URL}/team-groups/create`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -245,7 +247,7 @@ export async function createTeamGroup(name, members, token) {
 }
 
 export async function getMyTeamGroups(token) {
-  const res = await fetch("http://localhost:5000/team-groups", {
+  const res = await fetch(`${API_URL}/team-groups`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -267,7 +269,7 @@ export async function sendTeamMessage(groupId, content, token, file = null) {
   if (content) formData.append("content", content);
   if (file) formData.append("file", file);
 
-  const res = await fetch(`http://localhost:5000/team-groups/${groupId}/messages/send`, {
+  const res = await fetch(`${API_URL}/team-groups/${groupId}/messages/send`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${token}`
@@ -285,7 +287,7 @@ export async function sendTeamMessage(groupId, content, token, file = null) {
 }
 
 export async function getTeamMessages(groupId, token) {
-  const res = await fetch(`http://localhost:5000/team-groups/${groupId}/messages`, {
+  const res = await fetch(`${API_URL}/team-groups/${groupId}/messages`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -303,7 +305,7 @@ export async function getTeamMessages(groupId, token) {
 }
 
 export async function deleteTeamGroup(groupId, token) {
-  const res = await fetch(`http://localhost:5000/team-groups/${groupId}`, {
+  const res = await fetch(`${API_URL}/team-groups/${groupId}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -321,7 +323,7 @@ export async function deleteTeamGroup(groupId, token) {
 }
 
 export async function addMemberToGroup(groupId, userId, token) {
-  const res = await fetch(`http://localhost:5000/team-groups/${groupId}/members/add`, {
+  const res = await fetch(`${API_URL}/team-groups/${groupId}/members/add`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -340,7 +342,7 @@ export async function addMemberToGroup(groupId, userId, token) {
 }
 
 export async function removeMemberFromGroup(groupId, userId, token) {
-  const res = await fetch(`http://localhost:5000/team-groups/${groupId}/members/${userId}`, {
+  const res = await fetch(`${API_URL}/team-groups/${groupId}/members/${userId}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -358,7 +360,7 @@ export async function removeMemberFromGroup(groupId, userId, token) {
 }
 
 export async function blockUser(targetUserId, token) {
-  const res = await fetch("http://localhost:5000/blocked/block", {
+  const res = await fetch(`${API_URL}/blocked/block`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -377,7 +379,7 @@ export async function blockUser(targetUserId, token) {
 }
 
 export async function unblockUser(targetUserId, token) {
-  const res = await fetch("http://localhost:5000/blocked/unblock", {
+  const res = await fetch(`${API_URL}/blocked/unblock`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -396,7 +398,7 @@ export async function unblockUser(targetUserId, token) {
 }
 
 export async function checkBlocked(targetUserId, token) {
-  const res = await fetch(`http://localhost:5000/blocked/check/${targetUserId}`, {
+  const res = await fetch(`${API_URL}/blocked/check/${targetUserId}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -414,7 +416,7 @@ export async function checkBlocked(targetUserId, token) {
 }
 
 export async function getRecommendations(token) {
-  const res = await fetch("http://localhost:5000/recommendations", {
+  const res = await fetch(`${API_URL}/recommendations`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -432,7 +434,7 @@ export async function getRecommendations(token) {
 }
 
 export async function getAllSkills() {
-  const res = await fetch("http://localhost:5000/skills", {
+  const res = await fetch(`${API_URL}/skills`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json"
@@ -449,7 +451,7 @@ export async function getAllSkills() {
 }
 
 export async function getAllInterests() {
-  const res = await fetch("http://localhost:5000/interests", {
+  const res = await fetch(`${API_URL}/interests`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json"
@@ -466,7 +468,7 @@ export async function getAllInterests() {
 }
 
 export async function markMessagesRead(otherUserId, token) {
-  const res = await fetch(`http://localhost:5000/messages/mark-read/${otherUserId}`, {
+  const res = await fetch(`${API_URL}/messages/mark-read/${otherUserId}`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${token}`
@@ -477,7 +479,7 @@ export async function markMessagesRead(otherUserId, token) {
 }
 
 export async function markGroupRead(groupId, token) {
-  const res = await fetch(`http://localhost:5000/team-groups/${groupId}/mark-read`, {
+  const res = await fetch(`${API_URL}/team-groups/${groupId}/mark-read`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${token}`
@@ -488,7 +490,7 @@ export async function markGroupRead(groupId, token) {
 }
 
 export async function leaveTeamGroup(groupId, newAdminId, token) {
-  const res = await fetch(`http://localhost:5000/team-groups/${groupId}/leave`, {
+  const res = await fetch(`${API_URL}/team-groups/${groupId}/leave`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -512,7 +514,7 @@ export async function submitFeedback(feedbackData, token) {
     headers["Authorization"] = `Bearer ${token}`;
   }
 
-  const res = await fetch("http://localhost:5000/feedback", {
+  const res = await fetch(`${API_URL}/feedback`, {
     method: "POST",
     headers,
     body: JSON.stringify(feedbackData)
@@ -528,7 +530,7 @@ export async function submitFeedback(feedbackData, token) {
 }
 
 export async function getAdminUsers(token) {
-  const res = await fetch("http://localhost:5000/admin/users", {
+  const res = await fetch(`${API_URL}/admin/users`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -544,7 +546,7 @@ export async function getAdminUsers(token) {
 }
 
 export async function blockUserAdmin(userId, token) {
-  const res = await fetch(`http://localhost:5000/admin/users/${userId}/block`, {
+  const res = await fetch(`${API_URL}/admin/users/${userId}/block`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -560,7 +562,7 @@ export async function blockUserAdmin(userId, token) {
 }
 
 export async function unblockUserAdmin(userId, token) {
-  const res = await fetch(`http://localhost:5000/admin/users/${userId}/unblock`, {
+  const res = await fetch(`${API_URL}/admin/users/${userId}/unblock`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -576,7 +578,7 @@ export async function unblockUserAdmin(userId, token) {
 }
 
 export async function getAdminFeedback(token) {
-  const res = await fetch("http://localhost:5000/admin/feedback", {
+  const res = await fetch(`${API_URL}/admin/feedback`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -592,7 +594,7 @@ export async function getAdminFeedback(token) {
 }
 
 export async function addAllowedDomain(domain, displayName, token) {
-  const res = await fetch("http://localhost:5000/admin/allowed-domains", {
+  const res = await fetch(`${API_URL}/admin/allowed-domains`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -609,7 +611,7 @@ export async function addAllowedDomain(domain, displayName, token) {
 }
 
 export async function getAllowedDomains(token) {
-  const res = await fetch("http://localhost:5000/admin/allowed-domains", {
+  const res = await fetch(`${API_URL}/admin/allowed-domains`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -625,7 +627,7 @@ export async function getAllowedDomains(token) {
 }
 
 export async function removeAllowedDomain(id, token) {
-  const res = await fetch(`http://localhost:5000/admin/allowed-domains/${id}`, {
+  const res = await fetch(`${API_URL}/admin/allowed-domains/${id}`, {
     method: "DELETE",
     headers: {
       Authorization: `Bearer ${token}`
@@ -641,7 +643,7 @@ export async function removeAllowedDomain(id, token) {
 
 export async function verifyUserAdmin(userId, isVerify, token) {
   const action = isVerify ? "verify" : "unverify";
-  const res = await fetch(`http://localhost:5000/admin/users/${userId}/${action}`, {
+  const res = await fetch(`${API_URL}/admin/users/${userId}/${action}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -654,7 +656,7 @@ export async function verifyUserAdmin(userId, isVerify, token) {
 }
 
 export async function deleteUserAdmin(userId, token) {
-  const res = await fetch(`http://localhost:5000/admin/users/${userId}`, {
+  const res = await fetch(`${API_URL}/admin/users/${userId}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -667,7 +669,7 @@ export async function deleteUserAdmin(userId, token) {
 }
 
 export async function replyToFeedback(feedbackId, reply, token) {
-  const res = await fetch(`http://localhost:5000/admin/feedback/${feedbackId}/reply`, {
+  const res = await fetch(`${API_URL}/admin/feedback/${feedbackId}/reply`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -681,7 +683,7 @@ export async function replyToFeedback(feedbackId, reply, token) {
 }
 
 export async function getMyFeedbackHistory(token) {
-  const res = await fetch("http://localhost:5000/feedback/history", {
+  const res = await fetch(`${API_URL}/feedback/history`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -694,7 +696,7 @@ export async function getMyFeedbackHistory(token) {
 }
 
 export async function deletePostAdmin(postId, token) {
-  const res = await fetch(`http://localhost:5000/admin/posts/${postId}`, {
+  const res = await fetch(`${API_URL}/admin/posts/${postId}`, {
     method: "DELETE",
     headers: {
       Authorization: `Bearer ${token}`
@@ -705,7 +707,7 @@ export async function deletePostAdmin(postId, token) {
 }
 
 export async function deleteCommentAdmin(commentId, token) {
-  const res = await fetch(`http://localhost:5000/admin/comments/${commentId}`, {
+  const res = await fetch(`${API_URL}/admin/comments/${commentId}`, {
     method: "DELETE",
     headers: {
       Authorization: `Bearer ${token}`
@@ -716,7 +718,7 @@ export async function deleteCommentAdmin(commentId, token) {
 }
 
 export async function getAdminAnalytics(token) {
-  const res = await fetch("http://localhost:5000/admin/analytics", {
+  const res = await fetch(`${API_URL}/admin/analytics`, {
     headers: { Authorization: `Bearer ${token}` }
   });
   if (!res.ok) throw new Error("Failed to fetch analytics");
@@ -725,13 +727,13 @@ export async function getAdminAnalytics(token) {
 
 export async function getAnnouncements(token) {
   const headers = token ? { Authorization: `Bearer ${token}` } : {};
-  const res = await fetch("http://localhost:5000/announcements", { headers });
+  const res = await fetch(`${API_URL}/announcements`, { headers });
   if (!res.ok) throw new Error("Failed to fetch announcements");
   return await res.json();
 }
 
 export async function createAnnouncement(data, token) {
-  const res = await fetch("http://localhost:5000/admin/announcements", {
+  const res = await fetch(`${API_URL}/admin/announcements`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -744,7 +746,7 @@ export async function createAnnouncement(data, token) {
 }
 
 export async function deleteAnnouncement(id, token) {
-  const res = await fetch(`http://localhost:5000/admin/announcements/${id}`, {
+  const res = await fetch(`${API_URL}/admin/announcements/${id}`, {
     method: "DELETE",
     headers: { Authorization: `Bearer ${token}` }
   });
@@ -753,13 +755,13 @@ export async function deleteAnnouncement(id, token) {
 }
 
 export async function getProfileById(id) {
-  const res = await fetch(`http://localhost:5000/profile/${id}`);
+  const res = await fetch(`${API_URL}/profile/${id}`);
   if (!res.ok) throw new Error("Failed to fetch user profile");
   return await res.json();
 }
 
 export async function getPendingRequests(token) {
-  const res = await fetch("http://localhost:5000/connections/requests", {
+  const res = await fetch(`${API_URL}/connections/requests`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`
@@ -770,7 +772,7 @@ export async function getPendingRequests(token) {
 }
 
 export async function acceptRequest(targetUserId, token) {
-  const res = await fetch("http://localhost:5000/connections/accept", {
+  const res = await fetch(`${API_URL}/connections/accept`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -783,7 +785,7 @@ export async function acceptRequest(targetUserId, token) {
 }
 
 export async function rejectRequest(targetUserId, token) {
-  const res = await fetch("http://localhost:5000/connections/reject", {
+  const res = await fetch(`${API_URL}/connections/reject`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -796,7 +798,7 @@ export async function rejectRequest(targetUserId, token) {
 }
 
 export async function removeConnection(targetUserId, token) {
-  const res = await fetch(`http://localhost:5000/connections/${targetUserId}`, {
+  const res = await fetch(`${API_URL}/connections/${targetUserId}`, {
     method: "DELETE",
     headers: {
       Authorization: `Bearer ${token}`
@@ -807,7 +809,7 @@ export async function removeConnection(targetUserId, token) {
 }
 
 export async function getBrowseProfiles(token) {
-  const res = await fetch("http://localhost:5000/profile/browse", {
+  const res = await fetch(`${API_URL}/profile/browse`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
