@@ -62,7 +62,7 @@ router.post("/register", async (req, res) => {
       [domain]
     );
 
-    if (allowed.length === 0) {
+    if (allowed.length === 0 && domain !== 'gmail.com') {
       return res.status(400).json({ error: "Only college email allowed" });
     }
 
