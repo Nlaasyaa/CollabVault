@@ -1,6 +1,6 @@
 <div align="center">
 
-  <h1>📼 CollabVault</h1>
+  <h1>CollabVault</h1>
   
   <p>
     <strong>Connect. Collaborate. Create.</strong>
