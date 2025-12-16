@@ -50,6 +50,7 @@ router.get("/db-check", async (req, res) => {
         res.json({
             status: "Connected",
             dbHost: maskedHost,
+            dbName: process.env.DB_NAME || "not set",
             userCount: users[0].count,
             feedbackCount: feedback[0].count,
             env_api_url: process.env.NEXT_PUBLIC_API_URL || "not set"
