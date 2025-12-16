@@ -294,4 +294,41 @@ router.post("/reset-password", async (req, res) => {
   }
 });
 
+/* =======================
+   RESEND VERIFICATION
+======================= */
+router.post("/resend-verification", async (req, res) => {
+  try {
+    const { email } = req.body;
+    if (!email) return res.status(400).json({ error: "Email is required" });
+
+    const [users] = await db.query("SELECT * FROM users WHERE email = ?", [
+      email,
+    ]);
+    if (users.length === 0)
+      return res.status(400).json({ error: "User not found" });
+
+    const user = users[0];
+    if (user.email_verified)
+      return res.status(400).json({ error: "Email already verified" });
+
+    const token = crypto.randomBytes(32).toString("hex");
+    const tokenHash = hashToken(token);
+    const expires = new Date(Date.now() + 60 * 60 * 1000); // 1 hour
+
+    await db.query(
+      "UPDATE users SET verification_token_hash = ?, token_expires_at = ? WHERE id = ?",
+      [tokenHash, expires, user.id]
+    );
+
+    console.log("Resending verification email to:", user.email);
+    await sendVerificationEmail(user.email, token);
+
+    res.json({ message: "Verification email resent" });
+  } catch (err) {
+    console.error("RESEND ERROR:", err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 export default router;
