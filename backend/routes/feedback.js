@@ -36,11 +36,13 @@ router.post("/", auth, async (req, res) => {
 // GET /feedback/history - Get my feedback history
 router.get("/history", auth, async (req, res) => {
     try {
+        console.log("GET /feedback/history hit. User:", req.user);
         const userId = req.user.id;
         const [rows] = await db.query(
             "SELECT * FROM feedback WHERE user_id = ? ORDER BY created_at DESC",
             [userId]
         );
+        console.log(`Found ${rows.length} feedback items for user ${userId}`);
         res.json(rows);
     } catch (err) {
         console.error("Error fetching feedback history:", err);
