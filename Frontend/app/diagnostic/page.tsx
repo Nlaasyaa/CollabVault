@@ -5,22 +5,24 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+
 export default function DiagnosticPage() {
     const [email, setEmail] = useState("nlaasya.04@gmail.com");
     const [password, setPassword] = useState("12345678");
-    const [results, setResults] = useState<any>({}); // Changed from 'result' to 'results' and initial state to {}
+    const [results, setResults] = useState<any>(null);
     const [loading, setLoading] = useState(false);
 
-    const checkBackend = async () => { // Changed function name from 'testLogin' to 'checkBackend'
+    const checkBackend = async () => {
         setLoading(true);
-        setResults((prev: any) => ({ ...prev, backend: "checking..." })); // Changed how results are set
+        setResults(null);
 
         try {
             console.log("Testing login...");
             console.log("Email:", email);
             console.log("Password:", password);
 
-            const response = await fetch(`${API_URL}/auth/login`, { // Used API_URL
+            const response = await fetch(`${API_URL}/auth/login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -33,14 +35,14 @@ export default function DiagnosticPage() {
             const data = await response.json();
             console.log("Response data:", data);
 
-            setResult({
+            setResults({
                 status: response.status,
                 ok: response.ok,
                 data: data,
             });
         } catch (error: any) {
             console.error("Error:", error);
-            setResult({
+            setResults({
                 error: error.message,
             });
         } finally {
@@ -73,15 +75,15 @@ export default function DiagnosticPage() {
                         />
                     </div>
 
-                    <Button onClick={testLogin} disabled={loading} className="w-full">
+                    <Button onClick={checkBackend} disabled={loading} className="w-full">
                         {loading ? "Testing..." : "Test Login"}
                     </Button>
 
-                    {result && (
+                    {results && (
                         <div className="mt-4 p-4 bg-slate-100 rounded-lg">
                             <h3 className="font-bold mb-2">Result:</h3>
                             <pre className="text-xs overflow-auto">
-                                {JSON.stringify(result, null, 2)}
+                                {JSON.stringify(results, null, 2)}
                             </pre>
                         </div>
                     )}
