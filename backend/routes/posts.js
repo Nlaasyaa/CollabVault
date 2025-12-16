@@ -80,6 +80,7 @@ router.get("/", async (req, res) => {
       `SELECT posts.*, 
               profiles.display_name as creator_name, 
               profiles.user_id as creator_user_id,
+              (SELECT COUNT(*) FROM comments WHERE comments.post_id = posts.id) as real_comment_count,
               (CASE WHEN post_likes.post_id IS NOT NULL THEN 1 ELSE 0 END) as is_liked
        FROM posts 
        LEFT JOIN profiles ON posts.creator_id = profiles.user_id 
@@ -91,6 +92,7 @@ router.get("/", async (req, res) => {
     // Convert is_liked to boolean (MySQL might return 1/0)
     const formattedPosts = posts.map(post => ({
       ...post,
+      comments: post.real_comment_count, // Use dynamic count
       is_liked: !!post.is_liked
     }));
 
@@ -200,6 +202,7 @@ router.get("/:id", async (req, res) => {
       `SELECT posts.*, 
               profiles.display_name as creator_name, 
               profiles.user_id as creator_user_id,
+              (SELECT COUNT(*) FROM comments WHERE comments.post_id = posts.id) as real_comment_count,
               (CASE WHEN post_likes.post_id IS NOT NULL THEN 1 ELSE 0 END) as is_liked
        FROM posts 
        LEFT JOIN profiles ON posts.creator_id = profiles.user_id 
@@ -213,6 +216,7 @@ router.get("/:id", async (req, res) => {
     }
 
     const post = rows[0];
+    post.comments = post.real_comment_count; // Use dynamic count
     post.is_liked = !!post.is_liked;
 
     res.json(post);
