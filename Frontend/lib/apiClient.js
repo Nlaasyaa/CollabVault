@@ -827,7 +827,7 @@ export async function getBrowseProfiles(token) {
 }
 
 export async function forgotPassword(email) {
-  const res = await fetch("http://localhost:5000/auth/forgot-password", {
+  const res = await fetch(`${API_URL}/auth/forgot-password`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -844,7 +844,7 @@ export async function forgotPassword(email) {
 }
 
 export async function resetPassword(email, token, newPassword) {
-  const res = await fetch("http://localhost:5000/auth/reset-password", {
+  const res = await fetch(`${API_URL}/auth/reset-password`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"

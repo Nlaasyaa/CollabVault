@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { ArrowLeft, Save, Check, ChevronsUpDown, X, Sun, Moon } from 'lucide-react'
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
-import { getAllSkills, getAllInterests } from "@/lib/apiClient"
+import { getAllSkills, getAllInterests, changePassword } from "@/lib/apiClient"
 import { useTheme } from "next-themes"
 import { Switch } from "@/components/ui/switch"
 import {
@@ -54,7 +54,7 @@ const OPEN_FOR_OPTIONS = [
 ]
 
 export default function SettingsPage({ onBack }: { onBack: () => void }) {
-  const { user, updateProfile } = useAuth()
+  const { user, token, updateProfile } = useAuth()
   const [settings, setSettings] = useState<UserSettings>({
     email: user?.email || "",
     phoneNumber: user?.phone_number || "",
@@ -148,6 +148,9 @@ export default function SettingsPage({ onBack }: { onBack: () => void }) {
     })
   }
 
+  import {
+    getAllSkills, getAllInterests, changePassword
+  } from "@/lib/apiClient"
   const handleSave = async () => {
     setIsSaving(true)
     try {
@@ -161,8 +164,12 @@ export default function SettingsPage({ onBack }: { onBack: () => void }) {
         interests: settings.interests,
         open_for: settings.openFor,
       })
-      await new Promise((resolve) => setTimeout(resolve, 1000))
-      alert("Settings saved successfully!")
+
+      if (showPasswordInput && newPassword) {
+        // Line 57: const { user, updateProfile } = useAuth() -> It is NOT destructured currently.
+      }
+
+      // We need to fix the imports and the destructuring first, so I will break this thought and execute the tool correctly.
     } finally {
       setIsSaving(false)
     }

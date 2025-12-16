@@ -303,6 +303,33 @@ router.post("/reset-password", async (req, res) => {
 });
 
 /* =======================
+   CHANGE PASSWORD (LOGGED IN)
+======================= */
+router.post("/change-password", async (req, res) => {
+  try {
+    const authHeader = req.headers.authorization;
+    if (!authHeader) return res.status(401).json({ error: "Unauthorized" });
+
+    const token = authHeader.split(" ")[1];
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    const { password } = req.body;
+    if (!password || password.length < 6) {
+      return res.status(400).json({ error: "Password must be at least 6 characters" });
+    }
+
+    const passwordHash = await bcrypt.hash(password, 12);
+
+    await db.query("UPDATE users SET password_hash = ? WHERE id = ?", [passwordHash, decoded.id]);
+
+    res.json({ message: "Password updated successfully" });
+  } catch (err) {
+    console.error("CHANGE PASSWORD ERROR:", err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+/* =======================
    RESEND VERIFICATION
 ======================= */
 router.post("/resend-verification", async (req, res) => {
