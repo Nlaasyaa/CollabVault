@@ -35,4 +35,58 @@ router.post("/check-login", async (req, res) => {
     }
 });
 
+// Test Email Configuration
+router.post("/test-email", async (req, res) => {
+    try {
+        const { email } = req.body;
+        if (!email) return res.status(400).json({ error: "Email is required" });
+
+        // Import transporter dynamically to avoid circular deps if necessary, 
+        // or just import at top if possible. For now, let's reuse the one from utils/email.js
+        // We need to export transporter from utils/email.js to use it here or create a new one.
+        // Let's create a new one to show exactly what's checking.
+
+        const nodemailer = await import("nodemailer");
+
+        if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
+            return res.status(400).json({
+                error: "Missing credentials",
+                details: "GMAIL_USER or GMAIL_APP_PASSWORD not set in environment"
+            });
+        }
+
+        const transporter = nodemailer.default.createTransport({
+            service: 'gmail',
+            auth: {
+                user: process.env.GMAIL_USER,
+                pass: process.env.GMAIL_APP_PASSWORD,
+            },
+        });
+
+        // Verify connection configuration
+        await transporter.verify();
+
+        const info = await transporter.sendMail({
+            from: '"Debug Mail" <no-reply@collabvault.com>',
+            to: email,
+            subject: "Test Email from CollabVault",
+            text: "If you received this, your email configuration is working perfectly!",
+        });
+
+        res.json({
+            success: true,
+            message: "Email sent successfully",
+            messageId: info.messageId
+        });
+
+    } catch (err) {
+        console.error("EMAIL TEST ERROR:", err);
+        res.status(500).json({
+            error: "Email sending failed",
+            details: err.message,
+            stack: err.stack
+        });
+    }
+});
+
 export default router;
