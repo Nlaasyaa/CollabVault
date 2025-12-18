@@ -13,6 +13,10 @@ export const metadata: Metadata = {
   title: "CollabVault - College Community",
   description: "Connect with students, share interests, and discover collaboration opportunities",
   generator: "v0.app",
+    verification: {
+    google:"p70ZM6dmAV1Byx5rXK1AYVQmGM3HaOzcDTnbCLMxyZ0",
+  },
+
   icons: {
     icon: [
       {
