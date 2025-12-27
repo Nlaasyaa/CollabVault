@@ -84,7 +84,7 @@ router.post("/register", async (req, res) => {
     const [result] = await db.query(
       `INSERT INTO users 
         (email, password_hash, email_verified, verification_token_hash, token_expires_at, college_domain, phone_number, phone_verified)
-       VALUES (?, ?, 1, ?, ?, ?, ?, 0)`,
+       VALUES (?, ?, 0, ?, ?, ?, ?, 0)`,
       [email, passwordHash, tokenHash, expires, domain, phone_number || null]
     );
 
@@ -181,13 +181,11 @@ router.post("/login", async (req, res) => {
     const user = users[0];
 
     // Temporarily disabled email verification check
-    /*
     if (!user.email_verified) {
       return res
         .status(403)
         .json({ error: "Please verify your email first" });
     }
-    */
 
     if (user.is_blocked) {
       return res
