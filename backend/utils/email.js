@@ -13,6 +13,16 @@ const transporter = nodemailer.createTransport({
     },
 });
 
+// Export transporter for testing
+export const verifyConnection = async () => {
+    try {
+        await transporter.verify();
+        return { success: true };
+    } catch (error) {
+        return { success: false, error: error.message };
+    }
+};
+
 export const sendVerificationEmail = async (email, token) => {
     // Point to Frontend URL (port 3000) so the React page handles the verification UX
     const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
@@ -23,7 +33,7 @@ export const sendVerificationEmail = async (email, token) => {
 
     if (!process.env.GMAIL_USER) {
         console.log("No GMAIL_USER defined, skipping actual email sending.");
-        return;
+        throw new Error("Server misconfiguration: No email credentials.");
     }
 
     try {
@@ -45,10 +55,11 @@ export const sendVerificationEmail = async (email, token) => {
       `,
         });
         console.log("Message sent: %s", info.messageId);
+        return verificationLink;
     } catch (error) {
         console.error("Error sending email:", error);
+        throw error; // Throw so backend knows it failed
     }
-    return verificationLink;
 };
 
 export const sendPasswordResetEmail = async (email, token) => {

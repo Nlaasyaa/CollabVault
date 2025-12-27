@@ -105,8 +105,17 @@ router.post("/register", async (req, res) => {
       ]
     );
 
-    // Try sending email but don't block and don't care if it fails
-    sendVerificationEmail(email, token).catch(e => console.log("Email failed (ignored):", e));
+    // Try sending verification email
+    try {
+      await sendVerificationEmail(email, token);
+    } catch (emailErr) {
+      console.error("Email sending failed:", emailErr);
+      // We still create the account, but we warn the frontend?
+      // Or we can return error? Ideally if email fails, user is stuck.
+      // Let's return a specific message so frontend can show "Account created but email failed"
+      // But for now, let's just log it. If we throw, the user creation is already done (no transaction rollback implemented here easily without significant refactor).
+      // Ideally, we should notify the user.
+    }
 
     // Auto-login after signup
     const user = { id: userId, email, role: 'user', display_name };
@@ -355,16 +364,16 @@ router.post("/resend-verification", async (req, res) => {
     );
 
     console.log("Resending verification email to:", user.email);
-    const debugLink = await sendVerificationEmail(user.email, token);
+    await sendVerificationEmail(user.email, token);
 
     res.json({
-      message: "Verification email resent",
-      debugLink: debugLink // REMOVE IN PRODUCTION
+      message: "Verification email resent"
     });
   } catch (err) {
     console.error("RESEND ERROR:", err);
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ error: "Failed to send email. Check server logs." });
   }
+
 });
 
 export default router;
