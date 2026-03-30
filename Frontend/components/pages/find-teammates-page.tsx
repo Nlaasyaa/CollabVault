@@ -278,14 +278,14 @@ export default function FindTeammatesPage() {
   return (
     <div className="flex-1 flex flex-col bg-background overflow-hidden relative">
       {/* Header */}
-      <div className="border-b border-border px-8 py-4 flex justify-between items-center z-10 bg-background/80 backdrop-blur-sm">
+      <div className="border-b border-border px-4 md:px-8 py-4 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 z-10 bg-background/80 backdrop-blur-sm shrink-0 w-full">
         <div>
-          <h1 className="text-2xl font-bold text-foreground">Find Your Teammate</h1>
+          <h1 className="text-xl md:text-2xl font-bold text-foreground">Find Your Teammate</h1>
           <p className="text-xs text-muted-foreground">Swipe to connect with potential team members</p>
         </div>
 
         {/* Top Actions */}
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2 w-full lg:w-auto">
           {/* Requests Drawer */}
           <Drawer>
             <DrawerTrigger asChild>
