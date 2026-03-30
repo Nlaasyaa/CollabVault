@@ -459,4 +459,24 @@
     .heroSection h1 {
         font-size: 2.5rem;
     }
+
+    .ctaSection {
+        padding: 3rem 1.5rem;
+    }
+
+    .ctaSection h2 {
+        font-size: 2rem;
+    }
+
+    .ctaActions {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .btnPrimary,
+    .btnSecondary {
+        width: 100%;
+        text-align: center;
+        box-sizing: border-box;
+    }
 }

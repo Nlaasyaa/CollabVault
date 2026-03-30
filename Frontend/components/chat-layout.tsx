@@ -51,20 +51,34 @@ export default function ChatLayout({ activeChatId, onSelectChat, onChatUsersUpda
   }, [])
 
   return (
-    <div ref={containerRef} className="flex flex-1 overflow-hidden bg-background">
+    <div ref={containerRef} className="flex flex-1 overflow-hidden bg-background relative">
       {/* Chat List */}
-      <div style={{ width: dividerX }} className="flex flex-col border-r border-border overflow-hidden">
+      <div 
+        style={{ width: dividerX }} 
+        className={`flex flex-col border-r border-border overflow-hidden max-md:!w-full ${activeChatId ? "hidden md:flex" : "flex"}`}
+      >
         <ChatList activeChatId={activeChatId} onSelectChat={onSelectChat || (() => { })} onChatUsersUpdate={onChatUsersUpdate} />
       </div>
 
       {/* Divider */}
       <div
         onMouseDown={handleMouseDown}
-        className="w-1 bg-border hover:bg-primary cursor-col-resize transition-colors"
+        className="hidden md:block w-1 bg-border hover:bg-primary cursor-col-resize transition-colors shrink-0"
       />
 
       {/* Chat Window */}
-      <div style={{ width: `calc(100% - ${dividerX}px - 4px)` }} className="flex flex-col overflow-hidden">
+      <div 
+        style={{ width: `calc(100% - ${dividerX}px - 4px)` }} 
+        className={`flex flex-col overflow-hidden max-md:!w-full ${!activeChatId ? "hidden md:flex" : "flex"}`}
+      >
+        {activeChatId && (
+          <div className="md:hidden p-3 bg-muted/50 border-b border-border flex items-center shrink-0 w-full z-10 sticky top-0">
+            <button onClick={() => onSelectChat && onSelectChat('')} className="text-foreground text-sm flex items-center gap-2 font-semibold">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+              Go Back
+            </button>
+          </div>
+        )}
         <ChatWindow activeChatId={activeChatId} />
       </div>
     </div>

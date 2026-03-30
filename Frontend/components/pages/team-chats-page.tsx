@@ -465,9 +465,12 @@ export default function TeamChatsPage({ chatUsers = [] }: TeamChatsPageProps) {
   const filteredTeams = groups.filter((team) => team.name.toLowerCase().includes(searchQuery.toLowerCase()))
 
   return (
-    <div ref={containerRef} className="flex flex-1 h-full bg-background overflow-hidden">
+    <div ref={containerRef} className="flex flex-1 h-full bg-background overflow-hidden relative">
       {/* Team List Sidebar */}
-      <div style={{ width: dividerX }} className="border-r border-border flex flex-col bg-background flex-shrink-0">
+      <div 
+        style={{ width: dividerX }} 
+        className={`border-r border-border flex flex-col bg-background flex-shrink-0 max-md:!w-full ${selectedTeamId ? "hidden md:flex" : "flex"}`}
+      >
         {/* Header with Create Group Button */}
         <div className="border-b border-border p-4">
           <div className="flex items-center justify-between mb-3">
@@ -554,17 +557,25 @@ export default function TeamChatsPage({ chatUsers = [] }: TeamChatsPageProps) {
       {/* Divider */}
       <div
         onMouseDown={handleMouseDown}
-        className="w-1 bg-border hover:bg-primary cursor-col-resize transition-colors"
+        className="hidden md:block w-1 bg-border hover:bg-primary cursor-col-resize transition-colors"
       />
 
       {/* Chat Window */}
-      <div style={{ width: `calc(100% - ${dividerX}px - 4px)` }} className="flex flex-col bg-background h-full">
+      <div 
+        style={{ width: `calc(100% - ${dividerX}px - 4px)` }} 
+        className={`flex flex-col bg-background h-full max-md:!w-full ${!selectedTeamId ? "hidden md:flex" : "flex"}`}
+      >
         {selectedTeamId ? (
           <>
             {/* Header */}
-            <div className="border-b border-border bg-background px-6 py-4 flex items-center justify-between">
+            <div className="border-b border-border bg-background px-4 md:px-6 py-4 flex items-center justify-between">
               <div>
-                <h1 className="text-lg font-semibold text-foreground">{getTeamName()}</h1>
+                <h1 className="text-lg font-semibold text-foreground flex items-center gap-2">
+                  <button onClick={() => setSelectedTeamId(null)} className="md:hidden text-muted-foreground hover:text-foreground">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                  </button>
+                  {getTeamName()}
+                </h1>
                 <p className="text-xs text-muted-foreground">
                   {groups.find(g => g.id === selectedTeamId)?.members} members
                 </p>
