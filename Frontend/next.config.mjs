@@ -15,6 +15,7 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  turbopack: {}, // Silences the Webpack config error in Next.js 16
 }
 
 export default withPWA(nextConfig);
