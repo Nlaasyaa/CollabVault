@@ -194,9 +194,9 @@ export default function PostsPage() {
   return (
     <div className="flex-1 flex flex-col bg-background overflow-hidden">
       {/* Header */}
-      <div className="border-b border-border px-8 py-6 bg-background flex items-center justify-between">
+      <div className="border-b border-border px-4 md:px-8 py-4 md:py-6 bg-background flex items-center justify-between shrink-0">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Community Feed</h1>
+          <h1 className="text-xl md:text-3xl font-bold text-foreground overflow-hidden text-ellipsis whitespace-nowrap">Community Feed</h1>
         </div>
         <div className="flex items-center gap-2">
           <Button

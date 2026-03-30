@@ -36,9 +36,9 @@ function ProfileDetail({ profile, onBack, onChat, onConnect }: ProfileDetailProp
   return (
     <div className="flex-1 flex flex-col bg-background overflow-hidden">
       {/* Header */}
-      <div className="border-b border-border px-8 py-6 flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-foreground flex items-center gap-3">
+      <div className="border-b border-border px-4 md:px-8 py-4 md:py-6 flex flex-col sm:flex-row items-center justify-between shrink-0 gap-4">
+        <div className="w-full sm:w-auto overflow-hidden">
+          <h1 className="text-xl md:text-3xl font-bold text-foreground flex items-center gap-2 md:gap-3 flex-wrap">
             {profile.displayName}
             <Badge variant="secondary" className="text-sm font-normal">
               <Users size={14} className="mr-1" /> {profile.connectionCount} connections

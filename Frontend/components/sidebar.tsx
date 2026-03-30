@@ -45,25 +45,25 @@ export default function Sidebar({
   return (
     <div
       className={cn(
-        "flex flex-col border-r border-border bg-sidebar text-sidebar-foreground transition-all duration-300 ease-out",
-        collapsed ? "w-20" : "w-64",
+        "flex flex-col border-b md:border-b-0 md:border-r border-border bg-sidebar text-sidebar-foreground transition-all duration-300 ease-out shrink-0",
+        collapsed ? "h-auto md:h-full w-full md:w-20" : "h-auto md:h-full w-full md:w-64",
       )}
     >
       {/* Header */}
-      <div className="flex items-center justify-between gap-2 border-b border-sidebar-border px-4 py-4">
-        {!collapsed && <h1 className="text-xl font-bold text-pretty uppercase font-mulish tracking-[2px]">CollabVault</h1>}
+      <div className="flex items-center justify-between gap-2 border-b md:border-b border-sidebar-border px-4 py-4 shrink-0">
+        <h1 className={cn("text-xl font-bold text-pretty uppercase font-mulish tracking-[2px]", collapsed ? "block md:hidden" : "block")}>CollabVault</h1>
         <Button
           variant="ghost"
           size="sm"
           onClick={onToggleCollapse}
-          className="ml-auto text-sidebar-foreground hover:bg-sidebar-accent"
+          className="ml-auto text-sidebar-foreground hover:bg-sidebar-accent shrink-0"
         >
-          {collapsed ? <ChevronRight size={20} /> : <ChevronLeft size={20} />}
+          {collapsed ? <ChevronRight size={20} className="rotate-90 md:rotate-0" /> : <ChevronLeft size={20} className="rotate-90 md:rotate-0" />}
         </Button>
       </div>
 
       {/* Navigation Items */}
-      <div className="flex-1 overflow-y-auto">
+      <div className={cn("flex-1 overflow-y-auto", collapsed ? "hidden md:block" : "block")}>
 
 
         {/* Navigation Links */}

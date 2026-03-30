@@ -54,7 +54,7 @@ function HomeContent() {
   }
 
   return (
-    <div className="flex h-screen bg-background text-foreground">
+    <div className="flex flex-col md:flex-row h-[100dvh] bg-background text-foreground overflow-hidden">
       <Sidebar
         collapsed={sidebarCollapsed}
         onToggleCollapse={() => setSidebarCollapsed(!sidebarCollapsed)}
