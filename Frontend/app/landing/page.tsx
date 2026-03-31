@@ -101,7 +101,9 @@ export default function LandingPage() {
                 </section>
 
                 <footer className={styles.footer}>
-                    
+                    <Link href="/privacy" className={styles.footerLink}>
+                        Privacy Policy
+                    </Link>
                 </footer>
             </div>
         </div>
