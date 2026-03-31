@@ -23,10 +23,7 @@ jobs:
 
       - name: Install Frontend dependencies
         working-directory: Frontend
-        run: npm ci
-
-      - name: Install Capacitor CLI globally
-        run: npm install -g @capacitor/cli
+        run: npm install
 
       - name: Create placeholder web dir (using live server URL)
         working-directory: Frontend
