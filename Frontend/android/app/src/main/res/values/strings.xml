@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">CollabVault</string>
+    <string name="title_activity_main">CollabVault</string>
+    <string name="package_name">com.collabvault.app</string>
+    <string name="custom_url_scheme">com.collabvault.app</string>
+</resources>
