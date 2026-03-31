@@ -35,7 +35,7 @@ export default function ContactPage() {
                         <div className="space-y-6">
                             <div>
                                 <h3 className="font-bold text-[#ecc947] mb-1">📧 Email Support:</h3>
-                                <a href="mailto:laasyan.2004@gmail.com" className="text-xl underline hover:text-white transition-colors">didikadiscodancer@gmail.com</a>
+                                <a href="mailto:laasyan.2004@gmail.com" className="text-xl underline hover:text-white transition-colors">laasyan.2004@gmail.com</a>
                                 <p className="text-[#949993] mt-2 text-sm">Reach us for account issues, bug reports, feature requests, or general queries.</p>
                             </div>
 
