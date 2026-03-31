@@ -12,9 +12,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Mail, Phone, MapPin, Calendar, BookOpen, User, Briefcase, ArrowLeft } from "lucide-react"
 
 // Required for static export
-export async function generateStaticParams() {
-  return []
-}
 
 export default function UserProfilePage({ params }: { params: { id: string } }) {
     const { id } = params
