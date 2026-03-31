@@ -47,7 +47,7 @@ export default function PrivacyPolicy() {
       <p>
         If you have any questions about this Privacy Policy, contact us at:
         <br />
-        didikadiscodancer@gmail.com
+        laasyan.2004@gmail.com
       </p>
     </div>
   );
