@@ -72,7 +72,7 @@ export default function ContactPage() {
                             <h2 className="text-2xl font-bold">Partner With Us</h2>
                         </div>
                         <p className="text-[#949993] mb-4">Are you a college club, hackathon organizer, or company looking to collaborate?</p>
-                        <p>Email us at <a href="mailto:didikadiscodancer@gmail.com" className="text-[#ecc947] hover:underline">didikadiscodancer@gmail.com</a> — let’s build the next big thing together!</p>
+                        <p>Email us at <a href="mailto:laasyan.2004@gmail.com" className="text-[#ecc947] hover:underline">didikadiscodancer@gmail.com</a> — let’s build the next big thing together!</p>
                     </section>
 
                     {/* Our Mission */}
