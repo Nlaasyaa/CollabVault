@@ -1,25 +1,26 @@
 "use client"
 
-import { useEffect, useState, use } from "react"
+import { useEffect, useState } from "react"
 import { getProfileById } from "@/lib/apiClient"
 import { useAuth } from "@/context/auth-context"
 import { useRouter } from "next/navigation"
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Mail, Phone, MapPin, Calendar, BookOpen, User, Briefcase, ArrowLeft } from "lucide-react"
 
-// Required for static export - profile data is loaded client-side via API
+// Required for static export
 export async function generateStaticParams() {
   return []
 }
 
-export default function UserProfilePage({ params }: { params: Promise<{ id: string }> }) {
-    const { id } = use(params)
+export default function UserProfilePage({ params }: { params: { id: string } }) {
+    const { id } = params
     const { user } = useAuth()
     const router = useRouter()
+
     const [profile, setProfile] = useState<any>(null)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState("")
@@ -67,7 +68,9 @@ export default function UserProfilePage({ params }: { params: Promise<{ id: stri
             <div className="container mx-auto py-10 px-4 text-center">
                 <Card className="max-w-md mx-auto p-6">
                     <h2 className="text-xl font-bold text-red-500 mb-2">Profile Not Found</h2>
-                    <p className="text-muted-foreground">The user you are looking for does not exist or an error occurred.</p>
+                    <p className="text-muted-foreground">
+                        The user you are looking for does not exist or an error occurred.
+                    </p>
                 </Card>
             </div>
         )
@@ -76,10 +79,11 @@ export default function UserProfilePage({ params }: { params: Promise<{ id: stri
     return (
         <div className="min-h-screen bg-neutral-50 py-12 px-4">
             <div className="max-w-4xl mx-auto space-y-6">
-                {(user as any)?.role === 'admin' && (
+
+                {(user as any)?.role === "admin" && (
                     <Button
                         variant="outline"
-                        onClick={() => router.push('/?page=admin')}
+                        onClick={() => router.push("/?page=admin")}
                         className="mb-4"
                     >
                         <ArrowLeft className="w-4 h-4 mr-2" />
@@ -87,50 +91,65 @@ export default function UserProfilePage({ params }: { params: Promise<{ id: stri
                     </Button>
                 )}
 
-                {/* Header Card */}
                 <Card className="border-none shadow-md overflow-hidden">
                     <div className="h-32 bg-gradient-to-r from-blue-600 to-indigo-600"></div>
+
                     <div className="px-8 pb-8">
                         <div className="relative flex flex-col md:flex-row items-end -mt-12 mb-6 gap-6">
+
                             <Avatar className="h-32 w-32 border-4 border-white shadow-lg">
-                                <AvatarImage src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${profile.display_name}`} />
-                                <AvatarFallback className="text-4xl">{profile.display_name?.[0]}</AvatarFallback>
+                                <AvatarImage
+                                    src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${profile.display_name}`}
+                                />
+                                <AvatarFallback className="text-4xl">
+                                    {profile.display_name?.[0]}
+                                </AvatarFallback>
                             </Avatar>
+
                             <div className="flex-1 pb-2">
-                                <h1 className="text-3xl font-bold text-gray-900">{profile.display_name}</h1>
+                                <h1 className="text-3xl font-bold text-gray-900">
+                                    {profile.display_name}
+                                </h1>
+
                                 <div className="flex items-center gap-2 mt-1">
-                                    <Badge variant="secondary" className="text-sm font-normal">
-                                        {profile.role === 'admin' ? 'Administrator' : 'Student'}
+                                    <Badge variant="secondary">
+                                        {profile.role === "admin" ? "Administrator" : "Student"}
                                     </Badge>
-                                    {profile.open_for && JSON.parse(profile.open_for).length > 0 && (
-                                        <Badge className="bg-green-100 text-green-800 hover:bg-green-100 border-none">
-                                            Open to Work
-                                        </Badge>
-                                    )}
+
+                                    {profile.open_for &&
+                                        JSON.parse(profile.open_for).length > 0 && (
+                                            <Badge className="bg-green-100 text-green-800 border-none">
+                                                Open to Work
+                                            </Badge>
+                                        )}
                                 </div>
                             </div>
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-gray-600">
+
                             {profile.college && (
                                 <div className="flex items-center gap-2">
-                                    <MapPin size={18} className="text-gray-400" />
+                                    <MapPin size={18} />
                                     <span>{profile.college}</span>
                                 </div>
                             )}
+
                             {profile.branch && (
                                 <div className="flex items-center gap-2">
-                                    <BookOpen size={18} className="text-gray-400" />
+                                    <BookOpen size={18} />
                                     <span>{profile.branch} • {profile.year}</span>
                                 </div>
                             )}
+
                             <div className="flex items-center gap-2">
-                                <Mail size={18} className="text-gray-400" />
+                                <Mail size={18} />
                                 <span>{profile.email}</span>
                             </div>
+
                             {profile.phone_number && (
                                 <div className="flex items-center gap-2">
-                                    <Phone size={18} className="text-gray-400" />
+                                    <Phone size={18} />
                                     <span>{profile.phone_number}</span>
                                 </div>
                             )}
@@ -139,104 +158,85 @@ export default function UserProfilePage({ params }: { params: Promise<{ id: stri
                 </Card>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    {/* Main Content */}
+
                     <div className="md:col-span-2 space-y-6">
-                        {/* Bio */}
+
                         <Card>
                             <CardHeader>
-                                <CardTitle className="text-lg flex items-center gap-2">
-                                    <User size={20} />
-                                    About
+                                <CardTitle className="flex items-center gap-2">
+                                    <User size={20} /> About
                                 </CardTitle>
                             </CardHeader>
                             <CardContent>
-                                <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">
-                                    {profile.bio || "No bio provided."}
-                                </p>
+                                <p>{profile.bio || "No bio provided."}</p>
                             </CardContent>
                         </Card>
 
-                        {/* Skills */}
                         <Card>
                             <CardHeader>
-                                <CardTitle className="text-lg flex items-center gap-2">
-                                    <Briefcase size={20} />
-                                    Skills
+                                <CardTitle className="flex items-center gap-2">
+                                    <Briefcase size={20} /> Skills
                                 </CardTitle>
                             </CardHeader>
                             <CardContent>
                                 <div className="flex flex-wrap gap-2">
-                                    {profile.skills && profile.skills.length > 0 ? (
+                                    {profile.skills?.length > 0 ? (
                                         profile.skills.map((skill: string) => (
-                                            <Badge key={skill} variant="secondary" className="px-3 py-1">
-                                                {skill}
-                                            </Badge>
+                                            <Badge key={skill}>{skill}</Badge>
                                         ))
                                     ) : (
-                                        <p className="text-muted-foreground text-sm">No skills listed.</p>
+                                        <p>No skills listed.</p>
                                     )}
                                 </div>
                             </CardContent>
                         </Card>
+
                     </div>
 
-                    {/* Sidebar */}
                     <div className="space-y-6">
-                        {/* Open For */}
-                        <Card>
-                            <CardHeader>
-                                <CardTitle className="text-lg">Open For</CardTitle>
-                            </CardHeader>
-                            <CardContent>
-                                <div className="flex flex-col gap-2">
-                                    {profile.open_for && JSON.parse(profile.open_for).length > 0 ? (
-                                        JSON.parse(profile.open_for).map((item: string) => (
-                                            <div key={item} className="flex items-center gap-2 text-sm text-gray-700 bg-gray-50 p-2 rounded">
-                                                <div className="w-1.5 h-1.5 rounded-full bg-blue-500" />
-                                                {item}
-                                            </div>
-                                        ))
-                                    ) : (
-                                        <p className="text-muted-foreground text-sm">Not specified.</p>
-                                    )}
-                                </div>
-                            </CardContent>
-                        </Card>
 
-                        {/* Interests */}
                         <Card>
                             <CardHeader>
-                                <CardTitle className="text-lg">Interests</CardTitle>
+                                <CardTitle>Open For</CardTitle>
                             </CardHeader>
                             <CardContent>
-                                <div className="flex flex-wrap gap-2">
-                                    {profile.interests && profile.interests.length > 0 ? (
-                                        profile.interests.map((interest: string) => (
-                                            <Badge key={interest} variant="outline">
-                                                {interest}
-                                            </Badge>
-                                        ))
-                                    ) : (
-                                        <p className="text-muted-foreground text-sm">No interests listed.</p>
-                                    )}
-                                </div>
+                                {profile.open_for &&
+                                JSON.parse(profile.open_for).length > 0 ? (
+                                    JSON.parse(profile.open_for).map((item: string) => (
+                                        <div key={item}>{item}</div>
+                                    ))
+                                ) : (
+                                    <p>Not specified.</p>
+                                )}
                             </CardContent>
                         </Card>
 
                         <Card>
                             <CardHeader>
-                                <CardTitle className="text-lg">Joined</CardTitle>
+                                <CardTitle>Interests</CardTitle>
                             </CardHeader>
-                            <CardContent className="flex items-center gap-2 text-sm text-gray-600">
-                                <Calendar size={16} />
-                                <span>
-                                    {profile.created_at ? new Date(profile.created_at).toLocaleDateString('en-US', {
-                                        month: 'long',
-                                        year: 'numeric'
-                                    }) : 'Unknown'}
-                                </span>
+                            <CardContent>
+                                {profile.interests?.length > 0 ? (
+                                    profile.interests.map((i: string) => (
+                                        <Badge key={i}>{i}</Badge>
+                                    ))
+                                ) : (
+                                    <p>No interests listed.</p>
+                                )}
                             </CardContent>
                         </Card>
+
+                        <Card>
+                            <CardHeader>
+                                <CardTitle>Joined</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                {profile.created_at
+                                    ? new Date(profile.created_at).toLocaleDateString()
+                                    : "Unknown"}
+                            </CardContent>
+                        </Card>
+
                     </div>
                 </div>
             </div>
