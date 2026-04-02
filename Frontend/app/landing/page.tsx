@@ -98,13 +98,13 @@ export default function LandingPage() {
                         </div>
                     </div>
 
-                    {/* SEO LINK */}
+                    {/* SEO Link */}
                     <Link href="/how-to-find-hackathon-teammates" className={styles.navLink}>
                         How to find teammates for hackathons →
                     </Link>
                 </section>
 
-                {/* EXTRA SEO CONTENT */}
+                {/* NEW SECTION (Problem - SEO BOOST) */}
                 <section className={styles.featuresSection}>
                     <h2 className={styles.sectionTitle}>Why Finding Teammates is Hard</h2>
                     <p className={styles.sectionSub}>
@@ -115,27 +115,27 @@ export default function LandingPage() {
                         <div className={styles.card}>
                             <h3>Everyone Already Has a Team</h3>
                             <p>
-                                Most students join late and find teams already formed.
+                                You join late and realize groups are already formed, leaving you stuck without options.
                             </p>
                         </div>
 
                         <div className={styles.card}>
                             <h3>Random Teams Don’t Work</h3>
                             <p>
-                                Random groups fail due to poor communication and mismatched skills.
+                                Joining random groups leads to poor communication, mismatched skills, and failed projects.
                             </p>
                         </div>
 
                         <div className={styles.card}>
                             <h3>No Visibility</h3>
                             <p>
-                                You don’t know who is actively looking for teammates.
+                                You don’t know who’s looking for teammates or what skills they bring.
                             </p>
                         </div>
                     </div>
                 </section>
 
-                {/* HOW IT WORKS */}
+                {/* NEW SECTION (How it works) */}
                 <section className={styles.featuresSection}>
                     <h2 className={styles.sectionTitle}>How CollabVault Helps</h2>
                     <p className={styles.sectionSub}>
@@ -144,18 +144,55 @@ export default function LandingPage() {
 
                     <div className={styles.cardsGrid}>
                         <div className={styles.card}>
-                            <h3>Create Profile</h3>
-                            <p>Add your skills and interests.</p>
+                            <h3>Step 1: Create Profile</h3>
+                            <p>
+                                Add your skills, interests, and what you’re looking for.
+                            </p>
                         </div>
 
                         <div className={styles.card}>
-                            <h3>Discover People</h3>
-                            <p>Find teammates who match your goals.</p>
+                            <h3>Step 2: Discover People</h3>
+                            <p>
+                                Browse students who match your skillset and goals.
+                            </p>
                         </div>
 
                         <div className={styles.card}>
-                            <h3>Build Teams</h3>
-                            <p>Connect and start collaborating instantly.</p>
+                            <h3>Step 3: Build Your Team</h3>
+                            <p>
+                                Connect, collaborate, and start building immediately.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                {/* NEW SECTION (Tips - SEO BOOST) */}
+                <section className={styles.featuresSection}>
+                    <h2 className={styles.sectionTitle}>Tips to Build a Strong Hackathon Team</h2>
+                    <p className={styles.sectionSub}>
+                        A good team increases your chances of winning significantly.
+                    </p>
+
+                    <div className={styles.cardsGrid}>
+                        <div className={styles.card}>
+                            <h3>Balanced Skills</h3>
+                            <p>
+                                Combine developers, designers, and idea thinkers.
+                            </p>
+                        </div>
+
+                        <div className={styles.card}>
+                            <h3>Communication Matters</h3>
+                            <p>
+                                Teams fail not due to skills — but lack of coordination.
+                            </p>
+                        </div>
+
+                        <div className={styles.card}>
+                            <h3>Start Early</h3>
+                            <p>
+                                Don’t wait till the last moment to build your team.
+                            </p>
                         </div>
                     </div>
                 </section>
@@ -176,18 +213,6 @@ export default function LandingPage() {
                         </Link>
                     </div>
                 </section>
-
-                {/* HIDDEN SEO BOOST */}
-                <div style={{ display: "none" }}>
-                    find hackathon teammates, hackathon team finder, student collaboration platform,
-                    how to find teammates for hackathons, build hackathon team online,
-                    find project partners
-                </div>
-
-                <p style={{ opacity: 0.01, height: 0 }}>
-                    CollabVault helps students find hackathon teammates, build project teams,
-                    and collaborate effectively in hackathons and projects.
-                </p>
 
                 <footer className={styles.footer}>
                     <Link href="/privacy" className={styles.footerLink}>
