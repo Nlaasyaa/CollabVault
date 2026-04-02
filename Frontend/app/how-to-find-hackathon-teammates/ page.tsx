@@ -1,66 +1,127 @@
-export const metadata = {
-  title: "How to Find Hackathon Teammates (Even If You Have None) | CollabVault",
-  description:
-    "Struggling to find teammates for hackathons? Learn the best ways to build a team and collaborate effectively using CollabVault.",
-};
+"use client"
 
-export default function Page() {
-  return (
-    <main className="max-w-3xl mx-auto px-6 py-10 text-gray-800">
-      <h1 className="text-3xl font-bold mb-4">
-        How to Find Teammates for Hackathons (Even If You Have None)
-      </h1>
+import { useAuth } from "@/context/auth-context"
+import { useEffect } from "react"
+import { useRouter } from 'next/navigation'
+import Link from "next/link"
+import styles from "./landing.module.css"
 
-      <p className="mb-4">
-        <strong>Struggling to find a team for hackathons?</strong> You're not alone.
-      </p>
+export default function LandingPage() {
+    const { isAuthenticated, isLoading } = useAuth()
+    const router = useRouter()
 
-      <p className="mb-6">
-        Most students don’t lack skills — they lack access to the right people.
-      </p>
+    useEffect(() => {
+        if (!isLoading && isAuthenticated) {
+            router.push("/")
+        }
+    }, [isAuthenticated, isLoading, router])
 
-      <h2 className="text-2xl font-semibold mb-3">Best Ways to Find Teammates</h2>
+    if (isLoading) {
+        return null;
+    }
 
-      <ol className="list-decimal ml-6 mb-6 space-y-2">
-        <li>Ask in college groups (WhatsApp, clubs)</li>
-        <li>Use Discord or Reddit communities</li>
-        <li>Join hackathon networking sessions</li>
-        <li>
-          Use platforms like <strong>CollabVault</strong>
-        </li>
-      </ol>
+    return (
+        <div className={styles.pageWrapper}>
+            <div className={styles.noiseWrapper}></div>
+            <div className={styles.scanlines}></div>
 
-      <h2 className="text-2xl font-semibold mb-3">Why Use CollabVault?</h2>
+            <div className={styles.container}>
+                {/* Nav */}
+                <nav className={styles.nav}>
+                    <div className={styles.logo}>CollabVault</div>
+                    <div className={styles.navLinks}>
+                        <Link href="/contact" className={styles.navLink}>Contact Us</Link>
+                        <Link href="/login" className={styles.navLink}>Login</Link>
+                        <Link href="/signup" className={styles.btnNav}>Get Started</Link>
+                    </div>
+                </nav>
 
-      <ul className="list-disc ml-6 mb-6 space-y-2">
-        <li>Find teammates based on skills</li>
-        <li>Connect with students across colleges</li>
-        <li>Build teams faster</li>
-      </ul>
+                {/* Hero Section */}
+                <section className={styles.heroSection}>
+                    <div className={styles.heroContent}>
+                        <div className={styles.pill}>⚡ No Team? Start Here</div>
 
-      <p className="mb-6">
-        👉{" "}
-        <a
-          href="https://collabvault.vercel.app/landing"
-          className="text-blue-600 underline"
-        >
-          Try CollabVault here
-        </a>
-      </p>
+                        <h1>
+                            Everyone has a team.<br />
+                            Except you.
+                        </h1>
 
-      <h2 className="text-2xl font-semibold mb-3">Tips to Build a Strong Team</h2>
+                        <p className={styles.heroSub}>
+                            Stop joining random groups. Find the RIGHT teammates based on skills, interests, and compatibility — in minutes.
+                        </p>
 
-      <ul className="list-disc ml-6 mb-6 space-y-2">
-        <li>Have a mix of developers, designers, and idea people</li>
-        <li>Communication matters more than skills</li>
-        <li>Don’t wait until the last minute</li>
-      </ul>
+                        <div className={styles.heroActions}>
+                            <Link href="/signup" className={styles.btnPrimary}>
+                                Find Your Team
+                            </Link>
+                            <Link href="/login" className={styles.btnSecondary}>
+                                login
+                            </Link>
+                        </div>
+                    </div>
 
-      <h2 className="text-2xl font-semibold mb-3">Conclusion</h2>
+                    <div className={styles.visualContainer}>
+                        <div className={styles.sphere}></div>
+                    </div>
+                </section>
 
-      <p>
-        You don’t need to know people — you just need the right platform.
-      </p>
-    </main>
-  );
+                {/* Features */}
+                <section className={styles.featuresSection}>
+                    <h2 className={styles.sectionTitle}>Why CollabVault Works</h2>
+                    <p className={styles.sectionSub}>
+                        Build better teams faster — without wasting time searching.
+                    </p>
+
+                    <div className={styles.cardsGrid}>
+                        <div className={styles.card}>
+                            <div className={styles.cardIcon}>⚡</div>
+                            <h3>Discover Opportunities</h3>
+                            <p>
+                                Find hackathons and projects where you actually belong.
+                            </p>
+                        </div>
+
+                        <div className={styles.card}>
+                            <div className={styles.cardIcon}>👥</div>
+                            <h3>Smart Matching</h3>
+                            <p>
+                                Get matched with people who complement your skills — not random teammates.
+                            </p>
+                        </div>
+
+                        <div className={styles.card}>
+                            <div className={styles.cardIcon}>💬</div>
+                            <h3>Build Faster</h3>
+                            <p>
+                                Connect instantly and start building without wasting time forming teams.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                {/* CTA */}
+                <section className={styles.ctaSection}>
+                    <h2>Ready to find your team?</h2>
+                    <p>
+                        Stop searching. Start building with the right people.
+                    </p>
+
+                    <div className={styles.ctaActions}>
+                        <Link href="/signup" className={styles.btnPrimary}>
+                            Get Started →
+                        </Link>
+                        <Link href="/login" className={styles.btnSecondary}>
+                            Already a Member?
+                        </Link>
+                    </div>
+                </section>
+
+                <footer className={styles.footer}>
+                    <Link href="/privacy" className={styles.footerLink}>
+                        Privacy Policy
+                    </Link>
+                </footer>
+            </div>
+        </div>
+    )
 }
