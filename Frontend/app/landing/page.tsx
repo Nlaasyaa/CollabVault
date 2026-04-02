@@ -52,10 +52,10 @@ export default function LandingPage() {
 
                         <div className={styles.heroActions}>
                             <Link href="/signup" className={styles.btnPrimary}>
-                                Find Your Team →
+                                Find Your Team
                             </Link>
                             <Link href="/login" className={styles.btnSecondary}>
-                                I Already Have an Account
+                                login
                             </Link>
                         </div>
                     </div>
