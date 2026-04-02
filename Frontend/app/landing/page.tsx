@@ -50,6 +50,16 @@ export default function LandingPage() {
                             Stop joining random groups. Find the RIGHT teammates based on skills, interests, and compatibility — in minutes.
                         </p>
 
+                        {/* 🔥 SEO LINK (Hero) */}
+                        <p style={{ marginTop: "15px" }}>
+                            <Link 
+                                href="/how-to-find-hackathon-teammates" 
+                                style={{ textDecoration: "underline" }}
+                            >
+                                Don’t have a team? Read this guide →
+                            </Link>
+                        </p>
+
                         <div className={styles.heroActions}>
                             <Link href="/signup" className={styles.btnPrimary}>
                                 Find Your Team
@@ -96,6 +106,16 @@ export default function LandingPage() {
                                 Connect instantly and start building without wasting time forming teams.
                             </p>
                         </div>
+                    </div>
+
+                    {/* 🔥 SEO LINK (Features Section) */}
+                    <div style={{ marginTop: "30px", textAlign: "center" }}>
+                        <Link 
+                            href="/how-to-find-hackathon-teammates" 
+                            className={styles.navLink}
+                        >
+                            How to find teammates for hackathons →
+                        </Link>
                     </div>
                 </section>
 
