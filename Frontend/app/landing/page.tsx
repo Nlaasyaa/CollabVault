@@ -55,78 +55,13 @@ export default function LandingPage() {
                                 Find Your Team
                             </Link>
                             <Link href="/login" className={styles.btnSecondary}>
-                                Login
+                                login
                             </Link>
                         </div>
                     </div>
 
                     <div className={styles.visualContainer}>
                         <div className={styles.sphere}></div>
-                    </div>
-                </section>
-
-                {/* 🔥 SWIPE PREVIEW (CLEAN VERSION) */}
-                <section style={{ marginTop: "60px", textAlign: "center" }}>
-                    <p style={{ color: "#aaa", marginBottom: "20px", fontSize: "14px" }}>
-                        See how it works ↓
-                    </p>
-
-                    <div style={{ display: "flex", justifyContent: "center" }}>
-                        <div style={{
-                            width: "300px",
-                            padding: "22px",
-                            borderRadius: "20px",
-                            background: "rgba(20,20,20,0.85)",
-                            backdropFilter: "blur(12px)",
-                            border: "1px solid rgba(255,255,255,0.08)",
-                            boxShadow: "0 20px 50px rgba(0,0,0,0.6)",
-                            transform: "rotate(-2deg)"
-                        }}>
-                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                                <h3 style={{ fontSize: "18px", fontWeight: "bold" }}>
-                                    Riya
-                                </h3>
-
-                                <span style={{
-                                    fontSize: "13px",
-                                    color: "#e46880",
-                                    fontWeight: "600"
-                                }}>
-                                    87% Match
-                                </span>
-                            </div>
-
-                            <p style={{ fontSize: "12px", color: "#aaa", marginTop: "6px" }}>
-                                Frontend Developer
-                            </p>
-
-                            <p style={{ fontSize: "12px", color: "#ccc", marginTop: "10px" }}>
-                                Skills: React, UI/UX
-                            </p>
-
-                            <p style={{ fontSize: "12px", color: "#ccc" }}>
-                                Interests: Hackathons, AI
-                            </p>
-
-                            <div style={{
-                                marginTop: "12px",
-                                fontSize: "11px",
-                                color: "#888"
-                            }}>
-                                ✔ Complementary skills <br />
-                                ✔ Similar interests
-                            </div>
-
-                            <div style={{
-                                marginTop: "18px",
-                                display: "flex",
-                                justifyContent: "space-between",
-                                fontSize: "20px"
-                            }}>
-                                <span style={{ opacity: 0.7 }}>✕</span>
-                                <span style={{ color: "#e46880" }}>♥</span>
-                            </div>
-                        </div>
                     </div>
                 </section>
 
@@ -173,7 +108,7 @@ export default function LandingPage() {
 
                     <div className={styles.ctaActions}>
                         <Link href="/signup" className={styles.btnPrimary}>
-                            Get Started
+                            Get Started →
                         </Link>
                         <Link href="/login" className={styles.btnSecondary}>
                             Already a Member?
