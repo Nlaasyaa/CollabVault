@@ -6,13 +6,6 @@ import { useRouter } from 'next/navigation'
 import Link from "next/link"
 import styles from "./landing.module.css"
 
-/* 🔥 SEO METADATA */
-export const metadata = {
-    title: "Find Hackathon Teammates | CollabVault",
-    description:
-        "Find hackathon teammates based on skills and interests. Build teams, collaborate, and win hackathons with CollabVault.",
-}
-
 export default function LandingPage() {
     const { isAuthenticated, isLoading } = useAuth()
     const router = useRouter()
@@ -105,13 +98,13 @@ export default function LandingPage() {
                         </div>
                     </div>
 
-                    {/* 🔥 SEO LINK */}
+                    {/* SEO LINK */}
                     <Link href="/how-to-find-hackathon-teammates" className={styles.navLink}>
                         How to find teammates for hackathons →
                     </Link>
                 </section>
 
-                {/* EXTRA SEO CONTENT (UI SAME) */}
+                {/* EXTRA SEO CONTENT */}
                 <section className={styles.featuresSection}>
                     <h2 className={styles.sectionTitle}>Why Finding Teammates is Hard</h2>
                     <p className={styles.sectionSub}>
@@ -122,26 +115,27 @@ export default function LandingPage() {
                         <div className={styles.card}>
                             <h3>Everyone Already Has a Team</h3>
                             <p>
-                                Most students face situations where teams are already formed, leaving them without options.
+                                Most students join late and find teams already formed.
                             </p>
                         </div>
 
                         <div className={styles.card}>
                             <h3>Random Teams Don’t Work</h3>
                             <p>
-                                Random groups often fail due to lack of communication and mismatched skills.
+                                Random groups fail due to poor communication and mismatched skills.
                             </p>
                         </div>
 
                         <div className={styles.card}>
                             <h3>No Visibility</h3>
                             <p>
-                                There’s no easy way to discover people actively looking for teammates.
+                                You don’t know who is actively looking for teammates.
                             </p>
                         </div>
                     </div>
                 </section>
 
+                {/* HOW IT WORKS */}
                 <section className={styles.featuresSection}>
                     <h2 className={styles.sectionTitle}>How CollabVault Helps</h2>
                     <p className={styles.sectionSub}>
@@ -151,23 +145,17 @@ export default function LandingPage() {
                     <div className={styles.cardsGrid}>
                         <div className={styles.card}>
                             <h3>Create Profile</h3>
-                            <p>
-                                Add your skills, interests, and preferences.
-                            </p>
+                            <p>Add your skills and interests.</p>
                         </div>
 
                         <div className={styles.card}>
                             <h3>Discover People</h3>
-                            <p>
-                                Find teammates who match your goals and skills.
-                            </p>
+                            <p>Find teammates who match your goals.</p>
                         </div>
 
                         <div className={styles.card}>
                             <h3>Build Teams</h3>
-                            <p>
-                                Connect instantly and start collaborating.
-                            </p>
+                            <p>Connect and start collaborating instantly.</p>
                         </div>
                     </div>
                 </section>
@@ -189,16 +177,16 @@ export default function LandingPage() {
                     </div>
                 </section>
 
-                {/* 🔥 HIDDEN SEO BOOST */}
+                {/* HIDDEN SEO BOOST */}
                 <div style={{ display: "none" }}>
                     find hackathon teammates, hackathon team finder, student collaboration platform,
                     how to find teammates for hackathons, build hackathon team online,
-                    find project partners, hackathon team matching platform
+                    find project partners
                 </div>
 
                 <p style={{ opacity: 0.01, height: 0 }}>
-                    CollabVault helps students find hackathon teammates, build project teams, and collaborate effectively.
-                    It is a platform designed for student collaboration, hackathon participation, and team building.
+                    CollabVault helps students find hackathon teammates, build project teams,
+                    and collaborate effectively in hackathons and projects.
                 </p>
 
                 <footer className={styles.footer}>
