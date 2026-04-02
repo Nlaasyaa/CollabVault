@@ -98,7 +98,53 @@ export default function LandingPage() {
                         </div>
                     </div>
                 </section>
+                {/* Hero Section */}
+<section className={styles.heroSection}>
+   ...
+</section>
 
+{/* 👇 PASTE SWIPE PREVIEW HERE */}
+<section style={{ marginTop: "40px", display: "flex", justifyContent: "center" }}>
+  <div style={{
+    width: "280px",
+    padding: "20px",
+    borderRadius: "16px",
+    background: "#111",
+    color: "white",
+    boxShadow: "0 10px 30px rgba(0,0,0,0.4)"
+  }}>
+    <h3 style={{ fontSize: "18px", fontWeight: "bold" }}>Riya • Frontend Dev</h3>
+
+    <p style={{ fontSize: "12px", marginTop: "6px" }}>
+      Skills: React, UI/UX
+    </p>
+
+    <p style={{ fontSize: "12px" }}>
+      Interests: Hackathons, AI
+    </p>
+
+    <div style={{
+      marginTop: "12px",
+      fontSize: "14px",
+      color: "#e46880",
+      fontWeight: "bold"
+    }}>
+      87% Match
+    </div>
+
+    <div style={{
+      marginTop: "16px",
+      display: "flex",
+      justifyContent: "space-between"
+    }}>
+      <span>❌</span>
+      <span>❤️</span>
+    </div>
+  </div>
+</section>
+
+{/* Features Section */}
+<section className={styles.featuresSection}>
                 {/* CTA */}
                 <section className={styles.ctaSection}>
                     <h2>Ready to find your team?</h2>
