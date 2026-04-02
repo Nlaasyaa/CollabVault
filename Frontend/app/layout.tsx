@@ -1,37 +1,27 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Geist, Geist_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 import { AuthProvider } from "@/context/auth-context"
 import { ThemeProvider } from "@/components/theme-provider"
 
-const _geist = Geist({ subsets: ["latin"] })
-const _geistMono = Geist_Mono({ subsets: ["latin"] })
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return (
-    <html lang="en">
-      <body>{children}</body>
-    </html>
-  );
-}
+const geist = Geist({ subsets: ["latin"] })
+const geistMono = Geist_Mono({ subsets: ["latin"] })
+
 export const viewport: Viewport = {
   themeColor: "#191f1d",
 }
 
 export const metadata: Metadata = {
   title: "CollabVault - College Community",
-  description: "Connect with students, share interests, and discover collaboration opportunities",
+  description:
+    "Connect with students, share interests, and discover collaboration opportunities",
   generator: "v0.app",
   manifest: "/manifest.json",
   verification: {
-    google:"p70ZM6dmAV1Byx5rXK1AYVQmGM3HaOzcDTnbCLMxyZ0",
+    google: "p70ZM6dmAV1Byx5rXK1AYVQmGM3HaOzcDTnbCLMxyZ0",
   },
-
   icons: {
     icon: [
       {
@@ -53,12 +43,12 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode
-}>) {
+}) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`font-sans antialiased`}>
+      <body className="font-sans antialiased">
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
           <AuthProvider>{children}</AuthProvider>
         </ThemeProvider>
