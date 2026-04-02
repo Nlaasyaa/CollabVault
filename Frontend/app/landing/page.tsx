@@ -22,7 +22,6 @@ export default function LandingPage() {
 
     return (
         <div className={styles.pageWrapper}>
-            {/* Overlay Effects */}
             <div className={styles.noiseWrapper}></div>
             <div className={styles.scanlines}></div>
 
@@ -37,66 +36,83 @@ export default function LandingPage() {
                     </div>
                 </nav>
 
-                {/* Hero Section (VHS Box Style) */}
+                {/* Hero Section */}
                 <section className={styles.heroSection}>
                     <div className={styles.heroContent}>
-                        <div className={styles.pill}>⚡ Your Tech Community Hub</div>
-                        <h1>Find Your Perfect Hackathon Team</h1>
+                        <div className={styles.pill}>⚡ No Team? Start Here</div>
+
+                        <h1>
+                            Everyone has a team.<br />
+                            Except you.
+                        </h1>
+
                         <p className={styles.heroSub}>
-                            Connect with talented developers, share projects, and build amazing things together. Your next great
-                            collaboration starts here.
+                            Stop joining random groups. Find the RIGHT teammates based on skills, interests, and compatibility — in minutes.
                         </p>
+
                         <div className={styles.heroActions}>
-                            <Link href="/signup" className={styles.btnPrimary}>Start Building Together -{">"}</Link>
-                            <Link href="/login" className={styles.btnSecondary}>Sign In</Link>
+                            <Link href="/signup" className={styles.btnPrimary}>
+                                Find Your Team →
+                            </Link>
+                            <Link href="/login" className={styles.btnSecondary}>
+                                I Already Have an Account
+                            </Link>
                         </div>
                     </div>
 
                     <div className={styles.visualContainer}>
-                        {/* The Sphere acts as the abstract branding graphic */}
-                        <div className={styles.sphere} title="Collaborate"></div>
+                        <div className={styles.sphere}></div>
                     </div>
                 </section>
 
-                {/* Features Section */}
+                {/* Features */}
                 <section className={styles.featuresSection}>
-                    <h2 className={styles.sectionTitle}>Everything You Need to Collaborate</h2>
-                    <p className={styles.sectionSub}>Powerful features designed to help you connect, communicate, and create together.</p>
+                    <h2 className={styles.sectionTitle}>Why CollabVault Works</h2>
+                    <p className={styles.sectionSub}>
+                        Build better teams faster — without wasting time searching.
+                    </p>
 
                     <div className={styles.cardsGrid}>
-                        {/* Card 1 */}
                         <div className={styles.card}>
                             <div className={styles.cardIcon}>⚡</div>
-                            <h3>Share & Discover</h3>
-                            <p>Post about hackathons, projects, and ideas. Discover what the community is building and get
-                                inspired by innovative projects.</p>
+                            <h3>Discover Opportunities</h3>
+                            <p>
+                                Find hackathons and projects where you actually belong.
+                            </p>
                         </div>
 
-                        {/* Card 2 */}
                         <div className={styles.card}>
                             <div className={styles.cardIcon}>👥</div>
-                            <h3>Find Teammates</h3>
-                            <p>Swipe through developer profiles and connect with people who match your skills and interests.
-                                Build your dream team effortlessly.</p>
+                            <h3>Smart Matching</h3>
+                            <p>
+                                Get matched with people who complement your skills — not random teammates.
+                            </p>
                         </div>
 
-                        {/* Card 3 */}
                         <div className={styles.card}>
                             <div className={styles.cardIcon}>💬</div>
-                            <h3>Real-Time Chat</h3>
-                            <p>Communicate seamlessly with 1-on-1 messaging and team chats. Stay connected and collaborate in
-                                real-time.</p>
+                            <h3>Build Faster</h3>
+                            <p>
+                                Connect instantly and start building without wasting time forming teams.
+                            </p>
                         </div>
                     </div>
                 </section>
 
-                {/* CTA Section */}
+                {/* CTA */}
                 <section className={styles.ctaSection}>
-                    <h2>Ready to Join the Community?</h2>
-                    <p>Join a growing community of developers connecting, collaborating, and building amazing projects together. Be part of the journey!</p>
+                    <h2>Ready to find your team?</h2>
+                    <p>
+                        Stop searching. Start building with the right people.
+                    </p>
+
                     <div className={styles.ctaActions}>
-                        <Link href="/signup" className={styles.btnPrimary}>Create Your Account -{">"}</Link>
-                        <Link href="/login" className={styles.btnSecondary}>Already a Member?</Link>
+                        <Link href="/signup" className={styles.btnPrimary}>
+                            Get Started →
+                        </Link>
+                        <Link href="/login" className={styles.btnSecondary}>
+                            Already a Member?
+                        </Link>
                     </div>
                 </section>
 
