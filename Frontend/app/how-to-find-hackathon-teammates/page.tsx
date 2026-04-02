@@ -52,7 +52,7 @@ export default function Page() {
       </ul>
 
       <p>
-        👉 <a href="/landing">Find teammates using CollabVault</a>
+         <a href="/landing">Find teammates using CollabVault</a>
       </p>
 
       <h2>Common mistakes students make</h2>
@@ -86,7 +86,7 @@ export default function Page() {
       </ul>
 
       <p>
-        👉 <a href="/landing">Start building your team now</a>
+         <a href="/landing">Start building your team now</a>
       </p>
 
       <h2>Conclusion</h2>
