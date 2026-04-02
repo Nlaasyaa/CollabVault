@@ -4,7 +4,7 @@ import { useAuth } from "@/context/auth-context"
 import { useEffect } from "react"
 import { useRouter } from 'next/navigation'
 import Link from "next/link"
-import styles from "./landing.module.css"
+import styles from "../landing/landing.module.css"
 
 export default function LandingPage() {
     const { isAuthenticated, isLoading } = useAuth()
