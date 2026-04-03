@@ -80,7 +80,7 @@ export default function SignupPage() {
   "Mathematics / Statistics"
 ];
 
-  const YEARS = ["1st Year", "2nd Year", "3rd Year", "4th Year", "Graduated"];
+  const YEARS = ["1st Year(Freshman)", "2nd Year(Sophomore)", "3rd Year(Junior)", "4th Year(Senior)", "Graduated"];
   // Extract domain helper
   const getDomain = (email: string) => {
     const parts = email.split('@');
