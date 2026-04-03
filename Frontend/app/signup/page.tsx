@@ -39,18 +39,48 @@ export default function SignupPage() {
   const [success, setSuccess] = useState(false);
 
   const BRANCHES = [
-    "Computer Science",
-    "Mechanical Engineering",
-    "Electrical Engineering",
-    "Civil Engineering",
-    "Electronics",
-    "Biotechnology",
-    "Chemical Engineering",
-    "Aerospace Engineering",
-  ];
+  "Computer Science",
+  "Information Technology",
+  "Artificial Intelligence",
+  "Data Science",
+  "Cyber Security",
+  "Software Engineering",
+  "Computer Engineering",
 
-  const YEARS = ["1st Year", "2nd Year", "3rd Year", "4th Year"];
+  "Electronics and Communication Engineering",
+  "Electrical and Electronics Engineering",
+  "Electrical Engineering",
+  "Electronics",
 
+  "Mechanical Engineering",
+  "Civil Engineering",
+  "Chemical Engineering",
+  "Biotechnology",
+  "Aerospace Engineering",
+
+  "Robotics Engineering",
+  "Mechatronics Engineering",
+  "Internet of Things (IoT)",
+  "Blockchain Technology",
+  "Cloud Computing",
+  "Big Data Engineering",
+
+  "Industrial Engineering",
+  "Production Engineering",
+  "Metallurgical Engineering",
+  "Mining Engineering",
+  "Petroleum Engineering",
+  "Environmental Engineering",
+
+  "Business Administration",
+  "Commerce",
+  "Economics",
+  "Design",
+  "Architecture",
+  "Mathematics / Statistics"
+];
+
+  const YEARS = ["1st Year", "2nd Year", "3rd Year", "4th Year", "Graduated"];
   // Extract domain helper
   const getDomain = (email: string) => {
     const parts = email.split('@');
