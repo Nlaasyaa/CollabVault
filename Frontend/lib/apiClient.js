@@ -877,3 +877,65 @@ export async function changePassword(newPassword, token) {
 
   return await res.json();
 }
+// ======================= EVENTS APIs =======================
+
+// GET all events
+export async function getEvents() {
+  const res = await fetch(`${API_URL}/events`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json"
+    }
+  });
+
+  if (!res.ok) {
+    const error = await res.json();
+    console.error("GET EVENTS ERROR:", error);
+    throw new Error(error.message || "Failed to fetch events");
+  }
+
+  return await res.json();
+}
+
+// GET single event
+export async function getEvent(eventId, token = null) {
+  const headers = {
+    "Content-Type": "application/json"
+  };
+
+  if (token) {
+    headers["Authorization"] = `Bearer ${token}`;
+  }
+
+  const res = await fetch(`${API_URL}/events/${eventId}`, {
+    method: "GET",
+    headers
+  });
+
+  if (!res.ok) {
+    const error = await res.json();
+    console.error("GET EVENT ERROR:", error);
+    throw new Error(error.message || "Failed to fetch event");
+  }
+
+  return await res.json();
+}
+
+export async function createEvent(eventData, token) {
+  const res = await fetch(`${API_URL}/events`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`
+    },
+    body: JSON.stringify(eventData)
+  });
+
+  if (!res.ok) {
+    const error = await res.json();
+    console.error("CREATE EVENT ERROR:", error);
+    throw new Error(error.message || "Failed to create event");
+  }
+
+  return await res.json();
+}

@@ -22,6 +22,7 @@ import debugRoutes from "./routes/debug.js";
 import adminRoutes from "./routes/admin.js";
 import feedbackRoutes from "./routes/feedback.js";
 import announcementsRoutes from "./routes/announcements.js";
+import eventsRoutes from "./routes/events.js";
 
 dotenv.config();
 
@@ -66,6 +67,7 @@ app.use("/recommendations", recommendationsRoutes);
 app.use("/debug", debugRoutes);
 app.use("/feedback", feedbackRoutes);
 app.use("/announcements", announcementsRoutes);
+app.use("/events", eventsRoutes);
 
 // =====================
 //     SOCKET.IO

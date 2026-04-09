@@ -1,7 +1,6 @@
 "use client"
 
-import { useState } from "react"
-import { ChevronLeft, ChevronRight, MessageSquare, Users, Zap, Users2, Settings, Shield } from 'lucide-react'
+import { ChevronLeft, ChevronRight, MessageSquare, Users, Zap, Users2, Settings, Shield, Calendar } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { useAuth } from "@/context/auth-context"
@@ -18,6 +17,7 @@ interface SidebarProps {
 
 const navigationItems = [
   { id: "posts", label: "Posts", icon: Zap, description: "Hackathons & projects" },
+  { id: "events", label: "Events", icon: Calendar, description: "Hackathons & events" }, // ✅ ADDED
   { id: "profiles", label: "Profiles", icon: Users2, description: "Browse community" },
   { id: "teammates", label: "Find Teammate", icon: Users, description: "Recommendations" },
   { id: "direct", label: "1 on 1 Chats", icon: MessageSquare, description: "Direct messages" },
@@ -38,9 +38,9 @@ export default function Sidebar({
   const router = useRouter()
 
   const handleLogout = () => {
-    logout();
-    router.push('/landing');
-  };
+    logout()
+    router.push('/landing')
+  }
 
   return (
     <div
@@ -50,26 +50,32 @@ export default function Sidebar({
       )}
     >
       {/* Header */}
-      <div className="flex items-center justify-between gap-2 border-b md:border-b border-sidebar-border px-4 py-4 shrink-0">
-        <h1 className={cn("text-xl font-bold text-pretty uppercase font-mulish tracking-[2px]", collapsed ? "block md:hidden" : "block")}>CollabVault</h1>
+      <div className="flex items-center justify-between gap-2 border-b border-sidebar-border px-4 py-4 shrink-0">
+        <h1 className={cn(
+          "text-xl font-bold uppercase tracking-[2px]",
+          collapsed ? "block md:hidden" : "block"
+        )}>
+          CollabVault
+        </h1>
+
         <Button
           variant="ghost"
           size="sm"
           onClick={onToggleCollapse}
-          className="ml-auto text-sidebar-foreground hover:bg-sidebar-accent shrink-0"
+          className="ml-auto hover:bg-sidebar-accent shrink-0"
         >
-          {collapsed ? <ChevronRight size={20} className="rotate-90 md:rotate-0" /> : <ChevronLeft size={20} className="rotate-90 md:rotate-0" />}
+          {collapsed
+            ? <ChevronRight size={20} className="rotate-90 md:rotate-0" />
+            : <ChevronLeft size={20} className="rotate-90 md:rotate-0" />}
         </Button>
       </div>
 
-      {/* Navigation Items */}
+      {/* Navigation */}
       <div className={cn("flex-1 overflow-y-auto", collapsed ? "hidden md:block" : "block")}>
-
-
-        {/* Navigation Links */}
         <nav className={cn("px-2 py-4", collapsed && "px-3")}>
           {navigationItems.map((item) => {
             const Icon = item.icon
+
             return (
               <div key={item.id} className="mb-2">
                 <button
@@ -78,15 +84,16 @@ export default function Sidebar({
                     "w-full flex items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm font-medium transition-colors",
                     activePage === item.id
                       ? "bg-gray-300 text-black border border-zinc-700 shadow-sm"
-                      : "hover:bg-gray-300 hover:text-black text-sidebar-foreground",
-                    collapsed && "justify-center px-2",
+                      : "hover:bg-gray-300 hover:text-black",
+                    collapsed && "justify-center px-2"
                   )}
                 >
                   <Icon size={20} className="flex-shrink-0" />
+
                   {!collapsed && (
                     <div className="flex-1">
                       <div>{item.label}</div>
-                      <div className="text-gray-500">{item.description}</div>
+                      <div className="text-gray-500 text-xs">{item.description}</div>
                     </div>
                   )}
                 </button>
@@ -94,23 +101,23 @@ export default function Sidebar({
             )
           })}
         </nav>
-
-        {/* Removed Recent Chats section and divider */}
       </div>
 
-      {/* Footer - Logout */}
+      {/* Footer */}
       {!collapsed && (
         <div className="border-t border-sidebar-border px-4 py-4 space-y-2">
+
+          {/* Settings */}
           <Button
             variant="ghost"
-            className="w-full justify-start text-sm text-sidebar-foreground hover:bg-gray-300 hover:text-black"
+            className="w-full justify-start text-sm hover:bg-gray-300 hover:text-black"
             onClick={() => onSelectPage("settings")}
           >
             <Settings size={18} className="mr-2" />
             Settings
           </Button>
 
-          {/* Admin Link */}
+          {/* Admin */}
           {(user as any)?.role === 'admin' && (
             <Button
               variant="ghost"
@@ -121,9 +128,11 @@ export default function Sidebar({
               Admin
             </Button>
           )}
+
+          {/* Logout */}
           <Button
             variant="ghost"
-            className="w-full text-sm text-sidebar-foreground hover:bg-gray-300 hover:text-black"
+            className="w-full text-sm hover:bg-gray-300 hover:text-black"
             onClick={handleLogout}
           >
             Logout
