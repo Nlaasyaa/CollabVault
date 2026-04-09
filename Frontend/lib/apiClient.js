@@ -939,3 +939,20 @@ export async function createEvent(eventData, token) {
 
   return await res.json();
 }
+
+export async function deleteEvent(eventId, token) {
+  const res = await fetch(`${API_URL}/events/${eventId}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
+
+  if (!res.ok) {
+    const error = await res.json();
+    console.error("DELETE EVENT ERROR:", error);
+    throw new Error(error.message || "Failed to delete event");
+  }
+
+  return await res.json();
+}

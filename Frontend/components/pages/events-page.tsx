@@ -5,13 +5,17 @@ import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { useAuth } from "@/context/auth-context"
-import { getEvents } from "@/lib/apiClient"
+import { getEvents, deleteEvent } from "@/lib/apiClient"
 import NewEventModal from "@/components/new-event-modal"
+import { Trash2 } from "lucide-react"
+import { toast } from "sonner"
+import { cn } from "@/lib/utils"
 
 export default function EventsPage() {
-  const { user } = useAuth()
+  const { user, token } = useAuth()
   const [events, setEvents] = useState<any[]>([])
   const [isLoading, setIsLoading] = useState(true)
+  const [isDeleting, setIsDeleting] = useState<string | null>(null)
   const [showModal, setShowModal] = useState(false)
   // ✅ ADMIN CHECK
   const isAdmin = useMemo(() => (user as any)?.role === "admin", [user])
@@ -51,6 +55,21 @@ export default function EventsPage() {
     fetchEvents()
   }, [])
 
+  const handleDelete = async (eventId: string) => {
+    if (!confirm("Are you sure you want to delete this event?")) return
+
+    try {
+      setIsDeleting(eventId)
+      await deleteEvent(eventId, token!)
+      toast.success("Event deleted successfully")
+      fetchEvents()
+    } catch (err: any) {
+      toast.error(err.message || "Failed to delete event")
+    } finally {
+      setIsDeleting(null)
+    }
+  }
+
   return (
     <div className="flex-1 flex flex-col bg-background overflow-hidden">
       {/* Header */}
@@ -82,9 +101,22 @@ export default function EventsPage() {
               ) : (
                 events.map((event) => (
                   <Card key={event.id} className="p-6 border border-border hover:shadow-sm transition-shadow space-y-4">
-                    <div>
-                      <h2 className="text-xl font-bold text-foreground mb-2">{event.title}</h2>
-                      <p className="text-sm text-foreground/80 line-clamp-3">{event.description}</p>
+                    <div className="flex justify-between items-start">
+                      <div className="flex-1">
+                        <h2 className="text-xl font-bold text-foreground mb-2">{event.title}</h2>
+                        <p className="text-sm text-foreground/80 line-clamp-3">{event.description}</p>
+                      </div>
+                      {isAdmin && (
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="text-muted-foreground hover:text-red-500 hover:bg-red-500/10 shrink-0"
+                          onClick={() => handleDelete(event.id)}
+                          disabled={isDeleting === event.id}
+                        >
+                          <Trash2 className={cn("h-5 w-5", isDeleting === event.id && "animate-pulse")} />
+                        </Button>
+                      )}
                     </div>
 
                     <div className="flex flex-wrap gap-2">
