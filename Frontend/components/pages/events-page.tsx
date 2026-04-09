@@ -5,6 +5,7 @@ import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { useAuth } from "@/context/auth-context"
+// @ts-ignore
 import { getEvents, deleteEvent } from "@/lib/apiClient"
 import NewEventModal from "@/components/new-event-modal"
 import { Trash2, ExternalLink, Calendar, MapPin, Users, Clock } from "lucide-react"
@@ -18,7 +19,7 @@ export default function EventsPage() {
   const [isDeleting, setIsDeleting] = useState<string | null>(null)
   const [showModal, setShowModal] = useState(false)
   // ✅ ADMIN CHECK
-  const isAdmin = useMemo(() => (user as any)?.role === "admin", [user])
+  const isAdmin = useMemo(() => (user as any)?.role?.toLowerCase() === "admin", [user])
 
   // ✅ FETCH EVENTS
   const fetchEvents = async () => {
@@ -80,7 +81,7 @@ export default function EventsPage() {
       {/* Header */}
       <div className="border-b border-border px-4 md:px-8 py-4 md:py-6 bg-background flex items-center justify-between shrink-0">
         <div>
-          <h1 className="text-xl md:text-3xl font-bold text-foreground overflow-hidden text-ellipsis whitespace-nowrap">Upcoming Events</h1>
+          <h1 className="text-xl md:text-3xl font-bold text-foreground overflow-hidden text-ellipsis whitespace-nowrap">Upcoming Events v2</h1>
         </div>
         <div>
           {isAdmin && (
