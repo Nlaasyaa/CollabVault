@@ -81,7 +81,7 @@ export default function EventsPage() {
       {/* Header */}
       <div className="border-b border-border px-4 md:px-8 py-4 md:py-6 bg-background flex items-center justify-between shrink-0">
         <div>
-          <h1 className="text-xl md:text-3xl font-bold text-foreground overflow-hidden text-ellipsis whitespace-nowrap">Upcoming Events v2</h1>
+          <h1 className="text-xl md:text-3xl font-bold text-foreground overflow-hidden text-ellipsis whitespace-nowrap">Upcoming Events</h1>
         </div>
         <div>
           {isAdmin && (
