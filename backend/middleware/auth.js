@@ -1,8 +1,10 @@
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+import { db } from "../db.js"; // ✅ IMPORTANT
 
 dotenv.config();
 
+// 🔐 AUTH MIDDLEWARE
 export const auth = (req, res, next) => {
   const token = req.header("Authorization")?.replace("Bearer ", "");
 
@@ -19,15 +21,40 @@ export const auth = (req, res, next) => {
   }
 };
 
-export const isAdmin = (req, res, next) => {
-  // Determine if we need to check db or if JWT has role. 
-  // Since existing JWTs won't have role, we should ideally fetch from DB in a real robust app,
-  // but for simplicity let's stick to JWT based (which requires re-login) OR 
-  // we can do a quick DB lookup here if needed. 
-  // Let's assume we update the login flow to include role in token.
-  if (req.user && req.user.role === 'admin') {
-    next();
-  } else {
-    return res.status(403).json({ error: "Access denied. Admin privileges required." });
+// 🔒 ADMIN CHECK (ROBUST VERSION)
+export const isAdmin = async (req, res, next) => {
+  try {
+    // ✅ Case 1: role exists in JWT
+    if (req.user?.role === "admin") {
+      return next();
+    }
+
+    // ✅ Case 2: fallback → check DB
+    const userId = req.user?.id;
+
+    if (!userId) {
+      return res.status(403).json({ error: "Unauthorized" });
+    }
+
+    const [rows] = await db.query(
+      "SELECT role FROM users WHERE id = ?",
+      [userId]
+    );
+
+    if (!rows.length) {
+      return res.status(403).json({ error: "User not found" });
+    }
+
+    if (rows[0].role === "admin") {
+      return next();
+    }
+
+    return res.status(403).json({
+      error: "Access denied. Admin privileges required.",
+    });
+
+  } catch (err) {
+    console.error("Admin check error:", err);
+    res.status(500).json({ error: "Server error" });
   }
 };

@@ -85,7 +85,7 @@ export default function FindTeammatesPage() {
   // --- Connection Management Handlers ---
   const handleAccept = async (targetId: number) => {
     try {
-      await acceptRequest(targetId, token);
+      await acceptRequest(String(targetId), token || "")
       alert("Request Accepted!");
       refreshData();
     } catch (e) { console.error(e); alert("Failed to accept"); }
@@ -93,7 +93,7 @@ export default function FindTeammatesPage() {
 
   const handleReject = async (targetId: number) => {
     try {
-      await rejectRequest(targetId, token);
+      await removeConnection(String(targetId), token || "")
       setRequests(prev => prev.filter(r => r.user_id !== targetId));
     } catch (e) { console.error(e); alert("Failed to reject"); }
   }
@@ -101,7 +101,7 @@ export default function FindTeammatesPage() {
   const handleRemoveConnection = async (targetId: number) => {
     if (!confirm("Are you sure you want to remove this connection? You can send a request again later.")) return;
     try {
-      await removeConnection(targetId, token);
+      await removeConnection(String(targetId), token || "")
       setMyConnections(prev => prev.filter(c => c.user_id !== targetId));
       // Optionally refresh recommendations to see them again immediately
       // refreshData(); 

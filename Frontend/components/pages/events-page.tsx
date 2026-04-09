@@ -17,6 +17,7 @@ export default function EventsPage() {
 
   // ✅ ADMIN CHECK
   useEffect(() => {
+    console.log("Current user role:", user?.role)
     setIsAdmin((user as any)?.role === "admin")
   }, [user])
 
@@ -26,20 +27,24 @@ export default function EventsPage() {
       setIsLoading(true)
       const data = await getEvents()
 
-      const mapped = data.map((e: any) => ({
-        id: e.id,
-        title: e.title,
-        description: e.description,
-        location: e.location,
-        eventDate: e.event_date
-          ? new Date(e.event_date).toLocaleDateString()
-          : "TBA",
-        skills: e.required_skills
-          ? e.required_skills.split(",").map((s: string) => s.trim())
-          : [],
-      }))
+      if (Array.isArray(data)) {
+        const mapped = data.map((e: any) => ({
+          id: e.id,
+          title: e.title,
+          description: e.description,
+          location: e.location,
+          eventDate: e.event_date
+            ? new Date(e.event_date).toLocaleDateString()
+            : "TBA",
+          skills: e.required_skills
+            ? e.required_skills.split(",").map((s: string) => s.trim())
+            : [],
+        }))
 
-      setEvents(mapped)
+        setEvents(mapped)
+      } else {
+        console.error("Data received is not an array:", data)
+      }
     } catch (err) {
       console.error(err)
     } finally {

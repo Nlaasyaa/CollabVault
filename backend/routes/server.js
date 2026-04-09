@@ -13,6 +13,7 @@ import teamRoutes from "./routes/teams.js";
 import swipeRoutes from "./routes/swipes.js";
 import chatRoutes from "./routes/chat.js";
 import messageRoutes from "./routes/messages.js";
+import eventsRoutes from "./routes/events.js"; // ✅ NEW
 
 dotenv.config();
 
@@ -20,7 +21,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Attach routes
+// Routes
 app.use("/auth", authRoutes);
 app.use("/profile", profileRoutes);
 app.use("/skills", skillsRoutes);
@@ -30,11 +31,11 @@ app.use("/teams", teamRoutes);
 app.use("/swipes", swipeRoutes);
 app.use("/chat", chatRoutes);
 app.use("/messages", messageRoutes);
+app.use("/events", eventsRoutes); // ✅ NEW
 
-// Create HTTP server for socket.io
+// Socket
 const server = http.createServer(app);
 
-// SOCKET.IO LOGIC
 const io = new Server(server, {
   cors: { origin: "*" },
 });

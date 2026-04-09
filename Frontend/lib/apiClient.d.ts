@@ -48,3 +48,9 @@ export function deleteAnnouncement(id: string | number, token: string): Promise<
 export function resetPassword(email: string, token: string, newPassword: string): Promise<any>;
 export function changePassword(newPassword: string, token: string): Promise<any>;
 export function forgotPassword(email: string): Promise<any>;
+export function getEvents(): Promise<any>;
+export function getEvent(eventId: string | number, token?: string | null): Promise<any>;
+export function getPendingRequests(token: string): Promise<any>;
+export function acceptRequest(targetUserId: string, token: string): Promise<any>;
+export function rejectRequest(targetUserId: string, token: string): Promise<any>;
+export function removeConnection(targetUserId: string, token: string): Promise<any>;

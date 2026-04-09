@@ -38,7 +38,7 @@ export default function LoginPage() {
 
     try {
       await login(email, password);
-      router.push("/");
+      window.location.href = "/events";
     } catch (err: any) {
       const msg = err.message || "Login failed";
       setError(msg);

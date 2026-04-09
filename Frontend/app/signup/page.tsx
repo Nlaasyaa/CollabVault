@@ -51,27 +51,23 @@ export default function SignupPage() {
   "Electrical and Electronics Engineering",
   "Electrical Engineering",
   "Electronics",
-
   "Mechanical Engineering",
   "Civil Engineering",
   "Chemical Engineering",
   "Biotechnology",
   "Aerospace Engineering",
-
   "Robotics Engineering",
   "Mechatronics Engineering",
   "Internet of Things (IoT)",
   "Blockchain Technology",
   "Cloud Computing",
   "Big Data Engineering",
-
   "Industrial Engineering",
   "Production Engineering",
   "Metallurgical Engineering",
   "Mining Engineering",
   "Petroleum Engineering",
   "Environmental Engineering",
-
   "Business Administration",
   "Commerce",
   "Economics",

@@ -12,6 +12,7 @@ import ProfilesPage from "@/components/pages/profiles-page"
 import SettingsPage from "@/components/pages/settings-page"
 import FeedbackPage from "@/components/pages/feedback-page"
 import AdminPage from "@/components/pages/admin-page"
+import EventsPage from "@/components/pages/events-page"
 
 function HomeContent() {
   const { isAuthenticated, isLoading } = useAuth()
@@ -78,6 +79,7 @@ function HomeContent() {
       {activePage === "feedback" && <FeedbackPage />}
       {activePage === "settings" && <SettingsPage onBack={() => setActivePage("direct")} />}
       {activePage === "admin" && <AdminPage />}
+      {activePage === "events" && <EventsPage />}
     </div>
   )
 }
