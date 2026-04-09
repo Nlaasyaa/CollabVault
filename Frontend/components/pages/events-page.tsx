@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useMemo } from "react"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -13,13 +13,8 @@ export default function EventsPage() {
   const [events, setEvents] = useState<any[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [showModal, setShowModal] = useState(false)
-  const [isAdmin, setIsAdmin] = useState(false)
-
   // ✅ ADMIN CHECK
-  useEffect(() => {
-    console.log("Current user role:", user?.role)
-    setIsAdmin((user as any)?.role === "admin")
-  }, [user])
+  const isAdmin = useMemo(() => (user as any)?.role === "admin", [user])
 
   // ✅ FETCH EVENTS
   const fetchEvents = async () => {
