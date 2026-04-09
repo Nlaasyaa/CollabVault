@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { useAuth } from "@/context/auth-context"
 import { getEvents, deleteEvent } from "@/lib/apiClient"
 import NewEventModal from "@/components/new-event-modal"
-import { Trash2 } from "lucide-react"
+import { Trash2, ExternalLink, Calendar, MapPin, Users, Clock } from "lucide-react"
 import { toast } from "sonner"
 import { cn } from "@/lib/utils"
 
@@ -32,8 +32,13 @@ export default function EventsPage() {
           title: e.title,
           description: e.description,
           location: e.location,
+          teamSize: e.team_size || 1,
+          registrationLink: e.registration_link,
           eventDate: e.event_date
             ? new Date(e.event_date).toLocaleDateString()
+            : "TBA",
+          deadline: e.deadline
+            ? new Date(e.deadline).toLocaleDateString()
             : "TBA",
           skills: e.required_skills
             ? e.required_skills.split(",").map((s: string) => s.trim())
@@ -125,15 +130,43 @@ export default function EventsPage() {
                       ))}
                     </div>
 
-                    <div className="flex flex-col gap-1 text-sm text-muted-foreground pt-2 border-t border-border/50">
-                      <div className="flex items-center gap-2">
-                        <span>📍</span>
-                        <span>{event.location}</span>
+                    <div className="flex flex-col gap-3 text-sm text-muted-foreground pt-4 border-t border-border/50">
+                      <div className="grid grid-cols-2 gap-y-2 gap-x-4">
+                        <div className="flex items-center gap-2">
+                          <MapPin className="h-4 w-4 text-primary" />
+                          <span className="truncate">{event.location}</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Calendar className="h-4 w-4 text-primary" />
+                          <span>{event.eventDate}</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Users className="h-4 w-4 text-primary" />
+                          <span>Max Team: {event.teamSize}</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Clock className="h-4 w-4 text-primary" />
+                          <span className="text-red-500 font-medium">Deadline: {event.deadline}</span>
+                        </div>
                       </div>
-                      <div className="flex items-center gap-2">
-                        <span>📅</span>
-                        <span>{event.eventDate}</span>
-                      </div>
+
+                      {event.registrationLink && (
+                        <Button 
+                          asChild 
+                          className="w-full mt-2 bg-primary hover:bg-primary/90 text-primary-foreground"
+                          variant="default"
+                        >
+                          <a 
+                            href={event.registrationLink.startsWith('http') ? event.registrationLink : `https://${event.registrationLink}`} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="flex items-center justify-center gap-2"
+                          >
+                            Register Now
+                            <ExternalLink className="h-4 w-4" />
+                          </a>
+                        </Button>
+                      )}
                     </div>
                   </Card>
                 ))
